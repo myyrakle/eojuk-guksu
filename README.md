@@ -1,1 +1,1 @@
-# eojuk-page
+# eojuk-guksu
