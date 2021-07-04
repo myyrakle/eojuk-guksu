@@ -7,6 +7,8 @@
 
     let selectedDatabase = "";
     let selectedOrm = "";
+
+    function onButtonClicked() {}
 </script>
 
 <main>
@@ -17,7 +19,7 @@
                 <option value={option.value}>{option.view}</option>
             {/each}</select
         > <br />
-        <textarea />
+        <textarea id="left-input" />
     </div>
     <div class="right">
         <select bind:value={selectedOrm}
@@ -25,8 +27,9 @@
                 <option value={option.value}>{option.view}</option>
             {/each}</select
         ><br />
-        <textarea />
+        <textarea readonly id="right-input" />
     </div>
+    <button on:click={onButtonClicked}>변환</button>
 </main>
 
 <style>

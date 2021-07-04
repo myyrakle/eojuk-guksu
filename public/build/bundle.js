@@ -491,7 +491,7 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (13:13) {#each database as option}
+    // (14:13) {#each database as option}
     function create_each_block_1(ctx) {
     	let option;
     	let t_value = /*option*/ ctx[7].view + "";
@@ -504,7 +504,7 @@ var app = (function () {
     			t = text(t_value);
     			option.__value = option_value_value = /*option*/ ctx[7].value;
     			option.value = option.__value;
-    			add_location(option, file, 13, 16, 283);
+    			add_location(option, file, 14, 16, 315);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, option, anchor);
@@ -527,14 +527,14 @@ var app = (function () {
     		block,
     		id: create_each_block_1.name,
     		type: "each",
-    		source: "(13:13) {#each database as option}",
+    		source: "(14:13) {#each database as option}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (21:13) {#each orm as option}
+    // (22:13) {#each orm as option}
     function create_each_block(ctx) {
     	let option;
     	let t_value = /*option*/ ctx[7].view + "";
@@ -547,7 +547,7 @@ var app = (function () {
     			t = text(t_value);
     			option.__value = option_value_value = /*option*/ ctx[7].value;
     			option.value = option.__value;
-    			add_location(option, file, 21, 16, 528);
+    			add_location(option, file, 22, 16, 576);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, option, anchor);
@@ -570,7 +570,7 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(21:13) {#each orm as option}",
+    		source: "(22:13) {#each orm as option}",
     		ctx
     	});
 
@@ -593,6 +593,8 @@ var app = (function () {
     	let br1;
     	let t4;
     	let textarea1;
+    	let t5;
+    	let button;
     	let mounted;
     	let dispose;
     	let each_value_1 = /*database*/ ctx[0];
@@ -638,22 +640,29 @@ var app = (function () {
     			br1 = element("br");
     			t4 = space();
     			textarea1 = element("textarea");
-    			add_location(hr, file, 9, 4, 151);
+    			t5 = space();
+    			button = element("button");
+    			button.textContent = "변환";
+    			add_location(hr, file, 10, 4, 183);
     			if (/*selectedDatabase*/ ctx[2] === void 0) add_render_callback(() => /*select0_change_handler*/ ctx[5].call(select0));
-    			add_location(select0, file, 11, 8, 189);
-    			add_location(br0, file, 15, 10, 373);
+    			add_location(select0, file, 12, 8, 221);
+    			add_location(br0, file, 16, 10, 405);
+    			attr_dev(textarea0, "id", "left-input");
     			attr_dev(textarea0, "class", "svelte-1ntmiyy");
-    			add_location(textarea0, file, 16, 8, 388);
+    			add_location(textarea0, file, 17, 8, 420);
     			attr_dev(div0, "class", "left svelte-1ntmiyy");
-    			add_location(div0, file, 10, 4, 162);
+    			add_location(div0, file, 11, 4, 194);
     			if (/*selectedOrm*/ ctx[3] === void 0) add_render_callback(() => /*select1_change_handler*/ ctx[6].call(select1));
-    			add_location(select1, file, 19, 8, 444);
-    			add_location(br1, file, 23, 9, 617);
+    			add_location(select1, file, 20, 8, 492);
+    			add_location(br1, file, 24, 9, 665);
+    			textarea1.readOnly = true;
+    			attr_dev(textarea1, "id", "right-input");
     			attr_dev(textarea1, "class", "svelte-1ntmiyy");
-    			add_location(textarea1, file, 24, 8, 632);
+    			add_location(textarea1, file, 25, 8, 680);
     			attr_dev(div1, "class", "right svelte-1ntmiyy");
-    			add_location(div1, file, 18, 4, 416);
-    			add_location(main, file, 8, 0, 140);
+    			add_location(div1, file, 19, 4, 464);
+    			add_location(button, file, 27, 4, 734);
+    			add_location(main, file, 9, 0, 172);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -686,11 +695,14 @@ var app = (function () {
     			append_dev(div1, br1);
     			append_dev(div1, t4);
     			append_dev(div1, textarea1);
+    			append_dev(main, t5);
+    			append_dev(main, button);
 
     			if (!mounted) {
     				dispose = [
     					listen_dev(select0, "change", /*select0_change_handler*/ ctx[5]),
-    					listen_dev(select1, "change", /*select1_change_handler*/ ctx[6])
+    					listen_dev(select1, "change", /*select1_change_handler*/ ctx[6]),
+    					listen_dev(button, "click", onButtonClicked, false, false, false)
     				];
 
     				mounted = true;
@@ -775,6 +787,10 @@ var app = (function () {
     	return block;
     }
 
+    function onButtonClicked() {
+    	
+    }
+
     function instance($$self, $$props, $$invalidate) {
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots("App", slots, []);
@@ -813,7 +829,8 @@ var app = (function () {
     		database,
     		orm,
     		selectedDatabase,
-    		selectedOrm
+    		selectedOrm,
+    		onButtonClicked
     	});
 
     	$$self.$inject_state = $$props => {
