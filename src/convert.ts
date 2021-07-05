@@ -1,10 +1,17 @@
-import {IParser, IEmmiter,PostgreSQLParser, MySQLParser, SequelizeTypescriptEmitter, TypeOrmEmitter} from "eojuk";
+import {
+    IParser,
+    IEmmiter,
+    PostgreSQLParser,
+    MySQLParser,
+    SequelizeTypescriptEmitter,
+    TypeOrmEmitter,
+} from "eojuk";
 
-export function convert(query:string, database: string, orm: string) {
-	let parser: IParser = null;
-	let emitter: IEmmiter = null;
+export function convert(query: string, database: string, orm: string) {
+    let parser: IParser = null;
+    let emitter: IEmmiter = null;
 
-	switch (database) {
+    switch (database) {
         case "postgresql":
         case "postgres":
         case "postgre":
@@ -43,7 +50,7 @@ export function convert(query:string, database: string, orm: string) {
     const tables = parser.parse(query);
     const sources = emitter.emit(tables, { sourceSplit: true });
 
-    console.log(sources)
+    console.log(sources);
 
-    return sources[0].source
+    return sources[0].source;
 }
