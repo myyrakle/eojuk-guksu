@@ -50,7 +50,7 @@ export function convert(query: string, database: string, orm: string) {
     const tables = parser.parse(query);
     const sources = emitter.emit(tables, { sourceSplit: true });
 
-    console.log(sources);
+    //console.log(sources);
 
     return sources[0].source;
 }
