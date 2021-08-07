@@ -42,10 +42,10 @@ jobs:
       - name: git config
         run: |
           git config --global user.name "myyrakle"
-          git config --global user.name "sssang97@naver.com"
+          git config --global user.email "sssang97@naver.com"
           
       - run: git commit -m "update"
       
        # Runs a set of commands using the runners shell
       
-      - run: git push -f https://github.com/myyrakle/eojuk-guksu-page main
+      - run: git push -f origin main
