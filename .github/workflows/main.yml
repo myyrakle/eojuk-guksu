@@ -24,18 +24,21 @@ jobs:
       - name: install 
         run: npm install
 
+      - name: build
+        run: |
+          npm run build
+          
+      - run: rm -rf .git
+      
+      - run: cd public
+      - run: git init
+    
       # Runs a set of commands using the runners shell
       - name: git config
         run: |
           git config --global user.name "myyrakle"
           git config --global user.name "sssang97@naver.com"
-
-      - name: build
-        run: |
-          npm run build
-      
-      - run: cd public
-      - run: git init
+    
       - run: git remote add origin https://github.com/myyrakle/eojuk-guksu-page
       - run: git branch main
       - run: git switch main
