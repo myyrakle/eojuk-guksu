@@ -33,7 +33,7 @@ jobs:
       - run: cd public
       - run: git init
     
-      - run: git remote add origin https://github.com/myyrakle/eojuk-guksu-page.git
+      - run: git remote add origin https://myyakle:${{secrets.TOKEN}}@github.com/myyrakle/eojuk-guksu-page.git
       - run: git pull origin main --allow-unrelated-histories
       - run: git branch main
       - run: git switch main
