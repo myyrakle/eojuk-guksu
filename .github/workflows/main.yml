@@ -31,6 +31,7 @@ jobs:
       - run: rm -rf .git
       
       - run: cd public
+      - working-directory: ./public
       - run: git init
     
       - run: git remote add origin https://myyakle:${{secrets.TOKEN}}@github.com/myyrakle/eojuk-guksu-page.git
