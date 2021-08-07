@@ -33,16 +33,17 @@ jobs:
       - run: cd public
       - run: git init
     
-      # Runs a set of commands using the runners shell
-      - name: git config
-        run: |
-          git config --global user.name "myyrakle"
-          git config --global user.name "sssang97@naver.com"
-    
       - run: git remote add origin https://github.com/myyrakle/eojuk-guksu-page
       - run: git pull origin main --allow-unrelated-histories
       - run: git branch main
       - run: git switch main
       - run: git add .
       - run: git commit -m "update"
+      
+       # Runs a set of commands using the runners shell
+      - name: git config
+        run: |
+          git config --global user.name "myyrakle"
+          git config --global user.name "sssang97@naver.com"
+      
       - run: git push -f origin main
