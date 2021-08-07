@@ -38,6 +38,7 @@ jobs:
           git branch main
           git switch main
           git add .
+          git config --global init.defaultBranch "main"
           git config --global user.name "myyrakle"
           git config --global user.email "sssang97@naver.com"
           git commit -m "update"
