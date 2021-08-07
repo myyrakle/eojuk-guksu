@@ -43,4 +43,5 @@ jobs:
           git switch main
           git add .
           git commit -m "update"
+          git pull origin main --allow-unrelated-histories
           git push -f origin main
