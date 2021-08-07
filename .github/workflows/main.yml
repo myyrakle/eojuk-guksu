@@ -30,7 +30,7 @@ jobs:
           
       - run: rm -rf .git
     
-      - name: deploy1 
+      - name: git config 
         working-directory: ./public
         run: | 
           git init
@@ -38,8 +38,16 @@ jobs:
           git config --global user.name "myyrakle"
           git config --global user.email "sssang97@naver.com"
           git remote add origin https://myyakle:${{secrets.TOKEN}}@github.com/myyrakle/eojuk-guksu-page.git
+          
+      - name: switch 
+        working-directory: ./public
+        run: |  
           git branch main
           git switch main
+          
+      - name: deploy
+        working-directory: ./public
+        run: |  
           git add .
           git commit -m "update"
           git push -f origin main
