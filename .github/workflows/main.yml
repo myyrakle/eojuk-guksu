@@ -33,15 +33,13 @@ jobs:
       - name: build
         run: |
           npm run build
-          
-      - name: deploy
-        run: |
-          cd public
-          git init
-          git remote add origin https://github.com/myyrakle/eojuk-guksu-page
-          git branch main
-          git switch main
-          git add .
-          git commit -m "update"
-          git pull origin main --allow-unrelated-histories
-          git push -f origin main
+      
+      - run: cd public
+      - run: git init
+      - run: git remote add origin https://github.com/myyrakle/eojuk-guksu-page
+      - run: git branch main
+      - run: git switch main
+      - run: git add .
+      - run: git commit -m "update"
+      - run: git pull origin main --allow-unrelated-histories
+      - run: git push -f origin main
