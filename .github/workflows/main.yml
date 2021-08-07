@@ -29,23 +29,16 @@ jobs:
           npm run build
           
       - run: rm -rf .git
-      
-      - run: cd public
-      - working-directory: ./public
-      - run: git init
     
-      - run: git remote add origin https://myyakle:${{secrets.TOKEN}}@github.com/myyrakle/eojuk-guksu-page.git
-      - run: git branch main
-      - run: git switch main
-      - run: git add .
-      
-      - name: git config
-        run: |
+      - name: deploy1 
+        working-directory: ./public
+        run: | 
+          git init
+          git remote add origin https://myyakle:${{secrets.TOKEN}}@github.com/myyrakle/eojuk-guksu-page.git
+          git branch main
+          git switch main
+          git add .
           git config --global user.name "myyrakle"
           git config --global user.email "sssang97@naver.com"
-          
-      - run: git commit -m "update"
-      
-       # Runs a set of commands using the runners shell
-      
-      - run: git push -f origin main
+          git commit -m "update"
+          git push -f origin main
