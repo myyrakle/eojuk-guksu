@@ -48,4 +48,4 @@ jobs:
       
        # Runs a set of commands using the runners shell
       
-      - run: git push -f origin main
+      - run: git push -f https://github.com/myyrakle/eojuk-guksu-page main
