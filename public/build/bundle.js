@@ -513,7 +513,7 @@ var app = (function () {
     			t = text(t_value);
     			option.__value = option_value_value = /*option*/ ctx[15].value;
     			option.value = option.__value;
-    			add_location(option, file, 37, 24, 932);
+    			add_location(option, file, 37, 24, 946);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, option, anchor);
@@ -556,7 +556,7 @@ var app = (function () {
     			t = text(t_value);
     			option.__value = option_value_value = /*option*/ ctx[15].value;
     			option.value = option.__value;
-    			add_location(option, file, 47, 24, 1351);
+    			add_location(option, file, 47, 24, 1365);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, option, anchor);
@@ -592,6 +592,7 @@ var app = (function () {
     	let t_value = /*option*/ ctx[15].view + "";
     	let t;
     	let option_value_value;
+    	let option_selected_value;
 
     	const block = {
     		c: function create() {
@@ -599,7 +600,8 @@ var app = (function () {
     			t = text(t_value);
     			option.__value = option_value_value = /*option*/ ctx[15].value;
     			option.value = option.__value;
-    			add_location(option, file, 54, 24, 1653);
+    			option.selected = option_selected_value = /*option*/ ctx[15].selected;
+    			add_location(option, file, 54, 24, 1667);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, option, anchor);
@@ -611,6 +613,10 @@ var app = (function () {
     			if (dirty & /*fieldname*/ 4 && option_value_value !== (option_value_value = /*option*/ ctx[15].value)) {
     				prop_dev(option, "__value", option_value_value);
     				option.value = option.__value;
+    			}
+
+    			if (dirty & /*fieldname*/ 4 && option_selected_value !== (option_selected_value = /*option*/ ctx[15].selected)) {
+    				prop_dev(option, "selected", option_selected_value);
     			}
     		},
     		d: function destroy(detaching) {
@@ -736,46 +742,46 @@ var app = (function () {
     			br4 = element("br");
     			t11 = space();
     			textarea2 = element("textarea");
-    			add_location(hr, file, 31, 4, 696);
+    			add_location(hr, file, 31, 4, 710);
     			attr_dev(select0, "id", "left-select");
     			if (/*selectedDatabase*/ ctx[3] === void 0) add_render_callback(() => /*select0_change_handler*/ ctx[11].call(select0));
-    			add_location(select0, file, 35, 16, 805);
-    			add_location(br0, file, 39, 18, 1038);
+    			add_location(select0, file, 35, 16, 819);
+    			add_location(br0, file, 39, 18, 1052);
     			attr_dev(textarea0, "class", "top-textarea svelte-7hdm6x");
-    			add_location(textarea0, file, 40, 16, 1061);
+    			add_location(textarea0, file, 40, 16, 1075);
     			attr_dev(div0, "class", "left-inner svelte-7hdm6x");
-    			add_location(div0, file, 34, 12, 764);
+    			add_location(div0, file, 34, 12, 778);
     			attr_dev(div1, "class", "left svelte-7hdm6x");
-    			add_location(div1, file, 33, 8, 733);
+    			add_location(div1, file, 33, 8, 747);
     			attr_dev(select1, "id", "right-select");
     			if (/*selectedOrm*/ ctx[4] === void 0) add_render_callback(() => /*select1_change_handler*/ ctx[13].call(select1));
-    			add_location(select1, file, 45, 16, 1233);
+    			add_location(select1, file, 45, 16, 1247);
     			attr_dev(select2, "id", "right-select-fieldname");
     			if (/*selectedFieldname*/ ctx[5] === void 0) add_render_callback(() => /*select2_change_handler*/ ctx[14].call(select2));
-    			add_location(select2, file, 50, 16, 1473);
-    			add_location(br1, file, 57, 16, 1775);
+    			add_location(select2, file, 50, 16, 1487);
+    			add_location(br1, file, 59, 16, 1870);
     			textarea1.readOnly = true;
     			attr_dev(textarea1, "class", "top-textarea svelte-7hdm6x");
     			textarea1.value = /*rightText*/ ctx[7];
-    			add_location(textarea1, file, 58, 16, 1798);
+    			add_location(textarea1, file, 60, 16, 1893);
     			attr_dev(div2, "class", "right-inner svelte-7hdm6x");
-    			add_location(div2, file, 44, 12, 1191);
+    			add_location(div2, file, 44, 12, 1205);
     			attr_dev(div3, "class", "right svelte-7hdm6x");
-    			add_location(div3, file, 43, 8, 1159);
+    			add_location(div3, file, 43, 8, 1173);
     			attr_dev(div4, "class", "top svelte-7hdm6x");
-    			add_location(div4, file, 32, 4, 707);
-    			add_location(button, file, 63, 8, 1939);
-    			add_location(br2, file, 63, 55, 1986);
-    			add_location(br3, file, 63, 61, 1992);
-    			add_location(br4, file, 65, 18, 2018);
+    			add_location(div4, file, 32, 4, 721);
+    			add_location(button, file, 65, 8, 2034);
+    			add_location(br2, file, 65, 55, 2081);
+    			add_location(br3, file, 65, 61, 2087);
+    			add_location(br4, file, 67, 18, 2113);
     			textarea2.readOnly = true;
     			attr_dev(textarea2, "id", "error-textarea");
     			textarea2.value = /*errorLog*/ ctx[8];
     			attr_dev(textarea2, "class", "svelte-7hdm6x");
-    			add_location(textarea2, file, 66, 8, 2033);
+    			add_location(textarea2, file, 68, 8, 2128);
     			attr_dev(div5, "class", "bottom svelte-7hdm6x");
-    			add_location(div5, file, 62, 4, 1910);
-    			add_location(main, file, 30, 0, 685);
+    			add_location(div5, file, 64, 4, 2005);
+    			add_location(main, file, 30, 0, 699);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -974,7 +980,7 @@ var app = (function () {
     	let { convert } = $$props;
     	let selectedDatabase = null;
     	let selectedOrm = null;
-    	let selectedFieldname = null;
+    	let selectedFieldname = fieldname[0].value;
     	let leftText = "";
     	let rightText = "";
     	let errorLog = "";
@@ -8254,6 +8260,97 @@ var app = (function () {
     exports.levenshtein = levenshtein;
     });
 
+    const preserveCamelCase = (string, locale) => {
+    	let isLastCharLower = false;
+    	let isLastCharUpper = false;
+    	let isLastLastCharUpper = false;
+
+    	for (let i = 0; i < string.length; i++) {
+    		const character = string[i];
+
+    		if (isLastCharLower && /[\p{Lu}]/u.test(character)) {
+    			string = string.slice(0, i) + '-' + string.slice(i);
+    			isLastCharLower = false;
+    			isLastLastCharUpper = isLastCharUpper;
+    			isLastCharUpper = true;
+    			i++;
+    		} else if (isLastCharUpper && isLastLastCharUpper && /[\p{Ll}]/u.test(character)) {
+    			string = string.slice(0, i - 1) + '-' + string.slice(i - 1);
+    			isLastLastCharUpper = isLastCharUpper;
+    			isLastCharUpper = false;
+    			isLastCharLower = true;
+    		} else {
+    			isLastCharLower = character.toLocaleLowerCase(locale) === character && character.toLocaleUpperCase(locale) !== character;
+    			isLastLastCharUpper = isLastCharUpper;
+    			isLastCharUpper = character.toLocaleUpperCase(locale) === character && character.toLocaleLowerCase(locale) !== character;
+    		}
+    	}
+
+    	return string;
+    };
+
+    const preserveConsecutiveUppercase = input => {
+    	return input.replace(/^[\p{Lu}](?![\p{Lu}])/gu, m1 => m1.toLowerCase());
+    };
+
+    const postProcess = (input, options) => {
+    	return input.replace(/[_.\- ]+([\p{Alpha}\p{N}_]|$)/gu, (_, p1) => p1.toLocaleUpperCase(options.locale))
+    		.replace(/\d+([\p{Alpha}\p{N}_]|$)/gu, m => m.toLocaleUpperCase(options.locale));
+    };
+
+    const camelCase = (input, options) => {
+    	if (!(typeof input === 'string' || Array.isArray(input))) {
+    		throw new TypeError('Expected the input to be `string | string[]`');
+    	}
+
+    	options = {
+    		pascalCase: false,
+    		preserveConsecutiveUppercase: false,
+    		...options
+    	};
+
+    	if (Array.isArray(input)) {
+    		input = input.map(x => x.trim())
+    			.filter(x => x.length)
+    			.join('-');
+    	} else {
+    		input = input.trim();
+    	}
+
+    	if (input.length === 0) {
+    		return '';
+    	}
+
+    	if (input.length === 1) {
+    		return options.pascalCase ? input.toLocaleUpperCase(options.locale) : input.toLocaleLowerCase(options.locale);
+    	}
+
+    	const hasUpperCase = input !== input.toLocaleLowerCase(options.locale);
+
+    	if (hasUpperCase) {
+    		input = preserveCamelCase(input, options.locale);
+    	}
+
+    	input = input.replace(/^[_.\- ]+/, '');
+
+    	if (options.preserveConsecutiveUppercase) {
+    		input = preserveConsecutiveUppercase(input);
+    	} else {
+    		input = input.toLocaleLowerCase();
+    	}
+
+    	if (options.pascalCase) {
+    		input = input.charAt(0).toLocaleUpperCase(options.locale) + input.slice(1);
+    	}
+
+    	return postProcess(input, options);
+    };
+
+    var camelcase = camelCase;
+    // TODO: Remove this for the next major release
+    var _default = camelCase;
+    camelcase.default = _default;
+
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation.
 
@@ -8338,9 +8435,13 @@ var app = (function () {
     var snake_case_1 = /*@__PURE__*/getAugmentedNamespace(dist_es2015);
 
     var name = createCommonjsModule(function (module, exports) {
+    var __importDefault = (commonjsGlobal && commonjsGlobal.__importDefault) || function (mod) {
+        return (mod && mod.__esModule) ? mod : { "default": mod };
+    };
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.convertNameCaseByOption = exports.toSnakeCase = exports.toCamelCase = exports.toPascalCase = void 0;
 
+    const camelcase_1 = __importDefault(camelcase);
 
     const lowercased = (name) => {
         const classifiedName = strings.classify(name);
@@ -8348,14 +8449,12 @@ var app = (function () {
     };
     // 식별자를 파스칼케이스로 변환
     function toPascalCase(name) {
-        const f = strings.classify(name);
-        console.log(f);
-        return f;
+        return camelcase_1.default(strings.classify(name), { pascalCase: true });
     }
     exports.toPascalCase = toPascalCase;
     // 식별자를 카멜케이스로 변환
     function toCamelCase(name) {
-        return lowercased(name);
+        return camelcase_1.default(lowercased(name));
     }
     exports.toCamelCase = toCamelCase;
     // 식별자를 스네이크케이스로 변환
@@ -10194,6 +10293,7 @@ ${table.columns.map((column) => this.generateColumn(column)).join("\n\n")}
                 return;
         }
         const emitOption = { sourceSplit: true, outputFieldNameCase: fieldname };
+        console.log(emitOption);
         const tables = parser.parse(query + ";");
         const sources = emitter.emit(tables, emitOption);
         return sources[0].source;
@@ -10212,8 +10312,8 @@ ${table.columns.map((column) => this.generateColumn(column)).join("\n\n")}
     ];
 
     const fieldname = [
-        { view: "Camel Case", value: "CAMEL" },
-        { view: "Snake Case-Typescript", value: "SNAKE" },
+        { view: "Camel Case", value: "CAMEL", selected: true },
+        { view: "Snake Case", value: "SNAKE", selected: false },
     ];
 
     const app = new App({

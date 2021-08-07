@@ -8,7 +8,7 @@
 
     let selectedDatabase = null;
     let selectedOrm = null;
-    let selectedFieldname = null;
+    let selectedFieldname = fieldname[0].value;
 
     let leftText = "";
     let rightText = "";
@@ -64,7 +64,9 @@
                     id="right-select-fieldname"
                     bind:value={selectedFieldname}
                     >{#each fieldname as option}
-                        <option value={option.value}>{option.view}</option>
+                        <option value={option.value} selected={option.selected}
+                            >{option.view}</option
+                        >
                     {/each}</select
                 >
                 <br />

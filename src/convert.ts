@@ -54,6 +54,8 @@ export function convert(
 
     const emitOption = { sourceSplit: true, outputFieldNameCase: fieldname };
 
+    console.log(emitOption);
+
     const tables = parser.parse(query + ";");
     const sources = emitter.emit(tables, emitOption);
 

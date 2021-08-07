@@ -1,4 +1,5 @@
 export interface SelectOption {
-    view: string; 
+    view: string;
     value: string;
+    selected?: boolean;
 }
