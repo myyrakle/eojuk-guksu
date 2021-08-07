@@ -39,6 +39,8 @@ jobs:
           cd public
           git init
           git remote add origin https://github.com/myyrakle/eojuk-guksu-page
+          git branch main
+          git switch main
           git add .
           git commit -m "update"
           git push -f origin main
