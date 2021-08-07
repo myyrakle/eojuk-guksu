@@ -7,7 +7,12 @@ import {
     TypeOrmEmitter,
 } from "eojuk";
 
-export function convert(query: string, database: string, orm: string) {
+export function convert(
+    query: string,
+    database: string,
+    orm: string,
+    fieldname: string
+) {
     let parser: IParser = null;
     let emitter: IEmmiter = null;
 
@@ -47,10 +52,10 @@ export function convert(query: string, database: string, orm: string) {
             return;
     }
 
-    const tables = parser.parse(query);
-    const sources = emitter.emit(tables, { sourceSplit: true });
+    const emitOption = { sourceSplit: true, outputFieldNameCase: fieldname };
 
-    //console.log(sources);
+    const tables = parser.parse(query + ";");
+    const sources = emitter.emit(tables, emitOption);
 
     return sources[0].source;
 }

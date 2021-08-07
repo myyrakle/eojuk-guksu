@@ -3,10 +3,12 @@
 
     export let database: SelectOption[];
     export let orm: SelectOption[];
+    export let fieldname: SelectOption[];
     export let convert: any;
 
     let selectedDatabase = null;
     let selectedOrm = null;
+    let selectedFieldname = null;
 
     let leftText = "";
     let rightText = "";
@@ -25,7 +27,12 @@
         }
 
         try {
-            rightText = convert(leftText, selectedDatabase, selectedOrm);
+            rightText = convert(
+                leftText,
+                selectedDatabase,
+                selectedOrm,
+                selectedFieldname
+            );
         } catch (error) {
             alert("오류 발생");
             errorLog = JSON.stringify(error);
@@ -52,7 +59,15 @@
                     >{#each orm as option}
                         <option value={option.value}>{option.view}</option>
                     {/each}</select
-                ><br />
+                >
+                <select
+                    id="right-select-fieldname"
+                    bind:value={selectedFieldname}
+                    >{#each fieldname as option}
+                        <option value={option.value}>{option.view}</option>
+                    {/each}</select
+                >
+                <br />
                 <textarea readonly class="top-textarea">{rightText}</textarea>
             </div>
         </div>
