@@ -1,0 +1,49 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ release ]
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with: 
+          node-version: '14'
+
+      # Runs a single command using the runners shell
+      - name: install 
+        run: npm install
+
+      - name: build
+        run: |
+          npm run build
+          
+      - run: rm -rf .git
+    
+      - name: git config 
+        working-directory: ./public
+        run: | 
+          git init
+          git config --global init.defaultBranch "main"
+          git config --global user.name "myyrakle"
+          git config --global user.email "sssang97@naver.com"
+          git remote add origin https://myyakle:${{secrets.TOKEN}}@github.com/myyrakle/eojuk-guksu-page.git
+          
+      - name: deploy
+        working-directory: ./public
+        run: |  
+          git add .
+          git commit -m "update"
+          git branch main
+          git switch main
+          git push -f origin main
