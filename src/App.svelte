@@ -1,5 +1,7 @@
 <script lang="ts">
   import Footer from "./components/Footer.svelte";
+  import LeftInput from "./components/LeftInput.svelte";
+  import RightInput from "./components/RightInput.svelte";
   import type { SelectOption } from "./types/select-option";
 
   export let database: SelectOption[];
@@ -44,34 +46,14 @@
 <main>
   <hr />
   <div class="top">
-    <div class="left">
-      <div class="left-inner">
-        <select id="left-select" bind:value={selectedDatabase}
-          >{#each database as option}
-            <option value={option.value}>{option.view}</option>
-          {/each}</select
-        > <br />
-        <textarea bind:value={leftText} class="top-textarea" />
-      </div>
-    </div>
-    <div class="right">
-      <div class="right-inner">
-        <select id="right-select" bind:value={selectedOrm}
-          >{#each orm as option}
-            <option value={option.value}>{option.view}</option>
-          {/each}</select
-        >
-        <select id="right-select-fieldname" bind:value={selectedFieldname}
-          >{#each fieldname as option}
-            <option value={option.value} selected={option.selected}
-              >{option.view}</option
-            >
-          {/each}</select
-        >
-        <br />
-        <textarea readonly class="top-textarea">{rightText}</textarea>
-      </div>
-    </div>
+    <LeftInput bind:database bind:selectedDatabase bind:leftText />
+    <RightInput
+      bind:orm
+      bind:selectedOrm
+      bind:rightText
+      bind:selectedFieldname
+      bind:fieldname
+    />
   </div>
   <div class="bottom">
     <button on:click={onButtonClicked}>변환</button> <br /><br />
@@ -84,28 +66,6 @@
 </main>
 
 <style>
-  .left {
-    height: 100%;
-    float: left;
-    width: 50%;
-  }
-
-  .right {
-    height: 100%;
-    display: inline-block;
-    width: 50%;
-  }
-
-  .left-inner {
-    height: 100%;
-    margin: 10px;
-  }
-
-  .right-inner {
-    height: 100%;
-    margin: 10px;
-  }
-
   .top {
     height: 60%;
     width: 100%;
@@ -114,11 +74,6 @@
   .bottom {
     width: 100%;
     text-align: center;
-  }
-
-  .top-textarea {
-    height: 500px;
-    width: 100%;
   }
 
   #error-textarea {
