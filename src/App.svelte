@@ -2,6 +2,7 @@
   import Footer from "./components/Footer.svelte";
   import LeftInput from "./components/LeftInput.svelte";
   import RightInput from "./components/RightInput.svelte";
+  import SettingModal from "./components/SettingModal.svelte";
   import type { SelectOption } from "./types/select-option";
 
   export let database: SelectOption[];
@@ -13,10 +14,10 @@
   let selectedOrm = null;
   let selectedFieldname = fieldname[0].value;
 
-  let leftText = "";
-  let rightText = "";
+  let leftText: string = "";
+  let rightText: string = "";
 
-  let errorLog = "";
+  let errorLog: string = "";
 
   function onButtonClicked() {
     if (selectedDatabase === null) {
@@ -61,6 +62,8 @@
     Error Log <br />
     <textarea readonly id="error-textarea">{errorLog}</textarea>
   </div>
+
+  <SettingModal />
 
   <Footer />
 </main>

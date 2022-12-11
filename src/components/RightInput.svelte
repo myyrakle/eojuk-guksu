@@ -4,6 +4,11 @@
   export let rightText;
   export let orm;
   export let fieldname;
+
+  function displaySettingModel() {
+    const modal = document.getElementById("modal");
+    modal.style.display = "flex";
+  }
 </script>
 
 <main>
@@ -20,6 +25,9 @@
             >{option.view}</option
           >
         {/each}</select
+      >
+      <button on:click={displaySettingModel}
+        ><i style="font-size:24px" class="fa">&#xf013;</i></button
       >
       <br />
       <textarea readonly class="top-textarea">{rightText}</textarea>
