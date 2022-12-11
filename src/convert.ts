@@ -11,7 +11,12 @@ export function convert(
     query: string,
     database: string,
     orm: string,
-    fieldname: string
+    fieldname: string, 
+    primaryKey: string, 
+    createdAt: string, 
+    updatedAt:string, 
+    deletedAt: string, 
+    schemaName: string
 ) {
     let parser: IParser = null;
     let emitter: IEmmiter = null;
@@ -52,9 +57,18 @@ export function convert(
             return;
     }
 
-    const emitOption = { sourceSplit: true, outputFieldNameCase: fieldname };
+    const emitOption = { 
+        sourceSplit: true, 
+        outputFieldNameCase: fieldname,
+        outputClassNameCase: "PASCAL",  
+        autoAddPrimaryKey: primaryKey,
+        autoAddCreatedAt: createdAt,
+        autoAddUpdatedAt: updatedAt,
+        autoAddDeletedAt: deletedAt,
+        databaseName: schemaName, 
+    };
 
-    console.log(emitOption);
+    console.log(emitOption)
 
     const tables = parser.parse(query + ";");
     const sources = emitter.emit(tables, emitOption);

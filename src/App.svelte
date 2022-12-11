@@ -19,6 +19,12 @@
 
   let errorLog: string = "";
 
+  let primaryKey: string = "id";
+  let createdAt: string = "created_at";
+  let updatedAt: string = "updated_at";
+  let deletedAt: string = "deleted_at";
+  let schemaName: string = "public";
+
   function onButtonClicked() {
     if (selectedDatabase === null) {
       alert("데이터베이스를 선택해주세요.");
@@ -35,16 +41,23 @@
         leftText,
         selectedDatabase,
         selectedOrm,
-        selectedFieldname
+        selectedFieldname,
+        primaryKey,
+        createdAt,
+        updatedAt,
+        deletedAt,
+        schemaName
       );
     } catch (error) {
       alert("오류 발생");
       errorLog = JSON.stringify(error);
     }
   }
+
+  function onLoad() {}
 </script>
 
-<main>
+<main on:load={onLoad}>
   <hr />
   <div class="top">
     <LeftInput bind:database bind:selectedDatabase bind:leftText />
@@ -63,7 +76,13 @@
     <textarea readonly id="error-textarea">{errorLog}</textarea>
   </div>
 
-  <SettingModal />
+  <SettingModal
+    bind:primaryKey
+    bind:createdAt
+    bind:updatedAt
+    bind:deletedAt
+    bind:schemaName
+  />
 
   <Footer />
 </main>

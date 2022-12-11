@@ -1,4 +1,5 @@
 <script>
+  // props
   export let selectedOrm;
   export let selectedFieldname;
   export let rightText;

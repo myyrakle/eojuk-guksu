@@ -927,7 +927,7 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (18:9) {#each orm as option}
+    // (19:9) {#each orm as option}
     function create_each_block_1(ctx) {
     	let option;
     	let t_value = /*option*/ ctx[7].view + "";
@@ -940,7 +940,7 @@ var app = (function () {
     			t = text(t_value);
     			option.__value = option_value_value = /*option*/ ctx[7].value;
     			option.value = option.__value;
-    			add_location(option, file$2, 18, 10, 445);
+    			add_location(option, file$2, 19, 10, 457);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, option, anchor);
@@ -963,14 +963,14 @@ var app = (function () {
     		block,
     		id: create_each_block_1.name,
     		type: "each",
-    		source: "(18:9) {#each orm as option}",
+    		source: "(19:9) {#each orm as option}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (23:9) {#each fieldname as option}
+    // (24:9) {#each fieldname as option}
     function create_each_block(ctx) {
     	let option;
     	let t_value = /*option*/ ctx[7].view + "";
@@ -985,7 +985,7 @@ var app = (function () {
     			option.__value = option_value_value = /*option*/ ctx[7].value;
     			option.value = option.__value;
     			option.selected = option_selected_value = /*option*/ ctx[7].selected;
-    			add_location(option, file$2, 23, 10, 654);
+    			add_location(option, file$2, 24, 10, 666);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, option, anchor);
@@ -1012,7 +1012,7 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(23:9) {#each fieldname as option}",
+    		source: "(24:9) {#each fieldname as option}",
     		ctx
     	});
 
@@ -1079,24 +1079,24 @@ var app = (function () {
     			textarea = element("textarea");
     			attr_dev(select0, "id", "right-select");
     			if (/*selectedOrm*/ ctx[0] === void 0) add_render_callback(() => /*select0_change_handler*/ ctx[5].call(select0));
-    			add_location(select0, file$2, 16, 6, 351);
+    			add_location(select0, file$2, 17, 6, 363);
     			attr_dev(select1, "id", "right-select-fieldname");
     			if (/*selectedFieldname*/ ctx[1] === void 0) add_render_callback(() => /*select1_change_handler*/ ctx[6].call(select1));
-    			add_location(select1, file$2, 21, 6, 538);
+    			add_location(select1, file$2, 22, 6, 550);
     			set_style(i, "font-size", "24px");
     			attr_dev(i, "class", "fa");
-    			add_location(i, file$2, 29, 9, 849);
-    			add_location(button, file$2, 28, 6, 800);
-    			add_location(br, file$2, 31, 6, 923);
+    			add_location(i, file$2, 30, 9, 861);
+    			add_location(button, file$2, 29, 6, 812);
+    			add_location(br, file$2, 32, 6, 935);
     			textarea.readOnly = true;
     			attr_dev(textarea, "class", "top-textarea svelte-kkkve3");
     			textarea.value = /*rightText*/ ctx[2];
-    			add_location(textarea, file$2, 32, 6, 937);
+    			add_location(textarea, file$2, 33, 6, 949);
     			attr_dev(div0, "class", "right-inner svelte-kkkve3");
-    			add_location(div0, file$2, 15, 4, 318);
+    			add_location(div0, file$2, 16, 4, 330);
     			attr_dev(div1, "class", "right svelte-kkkve3");
-    			add_location(div1, file$2, 14, 2, 293);
-    			add_location(main, file$2, 13, 0, 283);
+    			add_location(div1, file$2, 15, 2, 305);
+    			add_location(main, file$2, 14, 0, 295);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -1467,76 +1467,86 @@ var app = (function () {
     			input8 = element("input");
     			input9 = element("input");
     			attr_dev(h2, "class", "svelte-1fwzc0d");
-    			add_location(h2, file$1, 11, 8, 268);
+    			add_location(h2, file$1, 87, 8, 2046);
     			attr_dev(div0, "class", "title svelte-1fwzc0d");
-    			add_location(div0, file$1, 10, 6, 239);
+    			add_location(div0, file$1, 86, 6, 2017);
     			attr_dev(button, "class", "svelte-1fwzc0d");
-    			add_location(button, file$1, 14, 8, 340);
+    			add_location(button, file$1, 90, 8, 2118);
     			attr_dev(div1, "class", "close-area svelte-1fwzc0d");
-    			add_location(div1, file$1, 13, 6, 306);
+    			add_location(div1, file$1, 89, 6, 2084);
     			attr_dev(input0, "class", "checkbox svelte-1fwzc0d");
     			attr_dev(input0, "id", "pk-check");
     			attr_dev(input0, "type", "checkbox");
-    			add_location(input0, file$1, 21, 12, 524);
+    			input0.checked = true;
+    			add_location(input0, file$1, 97, 12, 2302);
     			attr_dev(input1, "class", "input-text svelte-1fwzc0d");
     			attr_dev(input1, "id", "pk");
     			attr_dev(input1, "type", "text");
-    			add_location(input1, file$1, 21, 68, 580);
-    			add_location(span0, file$1, 20, 10, 504);
+    			input1.disabled = /*primaryKeyDisable*/ ctx[5];
+    			add_location(input1, file$1, 103, 14, 2485);
+    			add_location(span0, file$1, 96, 10, 2282);
     			attr_dev(div2, "class", "content-item svelte-1fwzc0d");
-    			add_location(div2, file$1, 17, 8, 441);
+    			add_location(div2, file$1, 93, 8, 2219);
     			attr_dev(input2, "class", "checkbox svelte-1fwzc0d");
-    			attr_dev(input2, "id", "pk-check");
+    			attr_dev(input2, "id", "created-at-check");
     			attr_dev(input2, "type", "checkbox");
-    			add_location(input2, file$1, 31, 13, 801);
+    			input2.checked = true;
+    			add_location(input2, file$1, 115, 13, 2789);
     			attr_dev(input3, "class", "input-text svelte-1fwzc0d");
     			attr_dev(input3, "id", "created-at");
     			attr_dev(input3, "type", "text");
-    			add_location(input3, file$1, 31, 69, 857);
-    			add_location(span1, file$1, 30, 20, 781);
+    			input3.disabled = /*createdAtDisable*/ ctx[6];
+    			add_location(input3, file$1, 121, 14, 2979);
+    			add_location(span1, file$1, 114, 20, 2769);
     			attr_dev(div3, "class", "content-item svelte-1fwzc0d");
-    			add_location(div3, file$1, 29, 8, 733);
+    			add_location(div3, file$1, 113, 8, 2721);
     			attr_dev(input4, "class", "checkbox svelte-1fwzc0d");
     			attr_dev(input4, "id", "updated-at-check");
     			attr_dev(input4, "type", "checkbox");
-    			add_location(input4, file$1, 41, 13, 1086);
+    			input4.checked = true;
+    			add_location(input4, file$1, 133, 13, 3289);
     			attr_dev(input5, "class", "input-text svelte-1fwzc0d");
     			attr_dev(input5, "id", "updated-at");
     			attr_dev(input5, "type", "text");
-    			add_location(input5, file$1, 45, 14, 1208);
-    			add_location(span2, file$1, 40, 20, 1066);
+    			input5.disabled = /*updatedAtDisable*/ ctx[7];
+    			add_location(input5, file$1, 139, 14, 3479);
+    			add_location(span2, file$1, 132, 20, 3269);
     			attr_dev(div4, "class", "content-item svelte-1fwzc0d");
-    			add_location(div4, file$1, 39, 8, 1018);
+    			add_location(div4, file$1, 131, 8, 3221);
     			attr_dev(input6, "id", "deleted-at-check");
     			attr_dev(input6, "class", "checkbox svelte-1fwzc0d");
     			attr_dev(input6, "type", "checkbox");
-    			add_location(input6, file$1, 51, 13, 1379);
+    			input6.checked = true;
+    			add_location(input6, file$1, 151, 13, 3789);
     			attr_dev(input7, "class", "input-text svelte-1fwzc0d");
     			attr_dev(input7, "id", "deleted-at");
     			attr_dev(input7, "type", "text");
-    			add_location(input7, file$1, 55, 14, 1501);
-    			add_location(span3, file$1, 50, 20, 1359);
+    			input7.disabled = /*deletedAtDisable*/ ctx[8];
+    			add_location(input7, file$1, 157, 14, 3979);
+    			add_location(span3, file$1, 150, 20, 3769);
     			attr_dev(div5, "class", "content-item svelte-1fwzc0d");
-    			add_location(div5, file$1, 49, 8, 1311);
+    			add_location(div5, file$1, 149, 8, 3721);
     			attr_dev(input8, "class", "checkbox svelte-1fwzc0d");
     			attr_dev(input8, "id", "schema-name-check");
     			attr_dev(input8, "type", "checkbox");
-    			add_location(input8, file$1, 61, 13, 1669);
+    			input8.checked = true;
+    			add_location(input8, file$1, 169, 13, 4286);
     			attr_dev(input9, "class", "input-text svelte-1fwzc0d");
     			attr_dev(input9, "id", "schema-name");
     			attr_dev(input9, "type", "text");
-    			add_location(input9, file$1, 65, 14, 1792);
-    			add_location(span4, file$1, 60, 17, 1649);
+    			input9.disabled = /*schemaNameDisable*/ ctx[9];
+    			add_location(input9, file$1, 175, 14, 4474);
+    			add_location(span4, file$1, 168, 17, 4266);
     			attr_dev(div6, "class", "content-item svelte-1fwzc0d");
-    			add_location(div6, file$1, 59, 8, 1604);
+    			add_location(div6, file$1, 167, 8, 4221);
     			attr_dev(div7, "class", "content svelte-1fwzc0d");
-    			add_location(div7, file$1, 16, 6, 410);
+    			add_location(div7, file$1, 92, 6, 2188);
     			attr_dev(div8, "class", "modal-window svelte-1fwzc0d");
-    			add_location(div8, file$1, 9, 4, 205);
+    			add_location(div8, file$1, 85, 4, 1983);
     			attr_dev(div9, "id", "modal");
     			attr_dev(div9, "class", "modal-overlay svelte-1fwzc0d");
-    			add_location(div9, file$1, 8, 2, 161);
-    			add_location(main, file$1, 7, 0, 151);
+    			add_location(div9, file$1, 84, 2, 1939);
+    			add_location(main, file$1, 83, 0, 1912);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -1557,43 +1567,102 @@ var app = (function () {
     			append_dev(div2, span0);
     			append_dev(span0, input0);
     			append_dev(span0, input1);
+    			set_input_value(input1, /*primaryKey*/ ctx[0]);
     			append_dev(div7, t5);
     			append_dev(div7, div3);
     			append_dev(div3, t6);
     			append_dev(div3, span1);
     			append_dev(span1, input2);
     			append_dev(span1, input3);
+    			set_input_value(input3, /*createdAt*/ ctx[1]);
     			append_dev(div7, t7);
     			append_dev(div7, div4);
     			append_dev(div4, t8);
     			append_dev(div4, span2);
     			append_dev(span2, input4);
     			append_dev(span2, input5);
+    			set_input_value(input5, /*updatedAt*/ ctx[2]);
     			append_dev(div7, t9);
     			append_dev(div7, div5);
     			append_dev(div5, t10);
     			append_dev(div5, span3);
     			append_dev(span3, input6);
     			append_dev(span3, input7);
+    			set_input_value(input7, /*deletedAt*/ ctx[3]);
     			append_dev(div7, t11);
     			append_dev(div7, div6);
     			append_dev(div6, t12);
     			append_dev(div6, span4);
     			append_dev(span4, input8);
     			append_dev(span4, input9);
+    			set_input_value(input9, /*schemaName*/ ctx[4]);
 
     			if (!mounted) {
-    				dispose = listen_dev(button, "click", removeSettingModel, false, false, false);
+    				dispose = [
+    					listen_dev(button, "click", removeSettingModel, false, false, false),
+    					listen_dev(input0, "change", /*primaryKeyOnChange*/ ctx[10], false, false, false),
+    					listen_dev(input1, "input", /*input1_input_handler*/ ctx[15]),
+    					listen_dev(input2, "change", /*createdAtOnChange*/ ctx[11], false, false, false),
+    					listen_dev(input3, "input", /*input3_input_handler*/ ctx[16]),
+    					listen_dev(input4, "change", /*updatedAtOnChange*/ ctx[12], false, false, false),
+    					listen_dev(input5, "input", /*input5_input_handler*/ ctx[17]),
+    					listen_dev(input6, "change", /*deletedAtOnChange*/ ctx[13], false, false, false),
+    					listen_dev(input7, "input", /*input7_input_handler*/ ctx[18]),
+    					listen_dev(input8, "change", /*SchemaOnChange*/ ctx[14], false, false, false),
+    					listen_dev(input9, "input", /*input9_input_handler*/ ctx[19]),
+    					listen_dev(main, "load", onLoad$1, false, false, false)
+    				];
+
     				mounted = true;
     			}
     		},
-    		p: noop,
+    		p: function update(ctx, [dirty]) {
+    			if (dirty & /*primaryKeyDisable*/ 32) {
+    				prop_dev(input1, "disabled", /*primaryKeyDisable*/ ctx[5]);
+    			}
+
+    			if (dirty & /*primaryKey*/ 1 && input1.value !== /*primaryKey*/ ctx[0]) {
+    				set_input_value(input1, /*primaryKey*/ ctx[0]);
+    			}
+
+    			if (dirty & /*createdAtDisable*/ 64) {
+    				prop_dev(input3, "disabled", /*createdAtDisable*/ ctx[6]);
+    			}
+
+    			if (dirty & /*createdAt*/ 2 && input3.value !== /*createdAt*/ ctx[1]) {
+    				set_input_value(input3, /*createdAt*/ ctx[1]);
+    			}
+
+    			if (dirty & /*updatedAtDisable*/ 128) {
+    				prop_dev(input5, "disabled", /*updatedAtDisable*/ ctx[7]);
+    			}
+
+    			if (dirty & /*updatedAt*/ 4 && input5.value !== /*updatedAt*/ ctx[2]) {
+    				set_input_value(input5, /*updatedAt*/ ctx[2]);
+    			}
+
+    			if (dirty & /*deletedAtDisable*/ 256) {
+    				prop_dev(input7, "disabled", /*deletedAtDisable*/ ctx[8]);
+    			}
+
+    			if (dirty & /*deletedAt*/ 8 && input7.value !== /*deletedAt*/ ctx[3]) {
+    				set_input_value(input7, /*deletedAt*/ ctx[3]);
+    			}
+
+    			if (dirty & /*schemaNameDisable*/ 512) {
+    				prop_dev(input9, "disabled", /*schemaNameDisable*/ ctx[9]);
+    			}
+
+    			if (dirty & /*schemaName*/ 16 && input9.value !== /*schemaName*/ ctx[4]) {
+    				set_input_value(input9, /*schemaName*/ ctx[4]);
+    			}
+    		},
     		i: noop,
     		o: noop,
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(main);
     			mounted = false;
-    			dispose();
+    			run_all(dispose);
     		}
     	};
 
@@ -1608,6 +1677,10 @@ var app = (function () {
     	return block;
     }
 
+    function onLoad$1() {
+    	
+    }
+
     function removeSettingModel() {
     	const modal = document.getElementById("modal");
     	modal.style.display = "none";
@@ -1616,20 +1689,198 @@ var app = (function () {
     function instance$1($$self, $$props, $$invalidate) {
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots("SettingModal", slots, []);
-    	const writable_props = [];
+    	let { primaryKey } = $$props;
+    	let { createdAt } = $$props;
+    	let { updatedAt } = $$props;
+    	let { deletedAt } = $$props;
+    	let { schemaName } = $$props;
+    	let primaryKeyKeep;
+    	let createdAtKeep;
+    	let updatedAtKeep;
+    	let deletedAtKeep;
+    	let schemaNameKeep;
+    	let primaryKeyDisable = false;
+    	let createdAtDisable = false;
+    	let updatedAtDisable = false;
+    	let deletedAtDisable = false;
+    	let schemaNameDisable = false;
+
+    	function primaryKeyOnChange(value) {
+    		if (value.target.checked) {
+    			$$invalidate(0, primaryKey = primaryKeyKeep);
+    			$$invalidate(5, primaryKeyDisable = false);
+    		} else {
+    			primaryKeyKeep = primaryKey;
+    			$$invalidate(0, primaryKey = null);
+    			$$invalidate(5, primaryKeyDisable = true);
+    		}
+    	}
+
+    	function createdAtOnChange(value) {
+    		if (value.target.checked) {
+    			$$invalidate(1, createdAt = createdAtKeep);
+    			$$invalidate(6, createdAtDisable = false);
+    		} else {
+    			createdAtKeep = createdAt;
+    			$$invalidate(1, createdAt = null);
+    			$$invalidate(6, createdAtDisable = true);
+    		}
+    	}
+
+    	function updatedAtOnChange(value) {
+    		if (value.target.checked) {
+    			$$invalidate(2, updatedAt = updatedAtKeep);
+    			$$invalidate(7, updatedAtDisable = false);
+    		} else {
+    			updatedAtKeep = updatedAt;
+    			$$invalidate(2, updatedAt = null);
+    			$$invalidate(7, updatedAtDisable = true);
+    		}
+    	}
+
+    	function deletedAtOnChange(value) {
+    		if (value.target.checked) {
+    			$$invalidate(3, deletedAt = deletedAtKeep);
+    			$$invalidate(8, deletedAtDisable = false);
+    		} else {
+    			deletedAtKeep = deletedAt;
+    			$$invalidate(3, deletedAt = null);
+    			$$invalidate(8, deletedAtDisable = true);
+    		}
+    	}
+
+    	function SchemaOnChange(value) {
+    		if (value.target.checked) {
+    			$$invalidate(4, schemaName = schemaNameKeep);
+    			$$invalidate(9, schemaNameDisable = false);
+    		} else {
+    			schemaNameKeep = schemaName;
+    			$$invalidate(4, schemaName = null);
+    			$$invalidate(9, schemaNameDisable = true);
+    		}
+    	}
+
+    	const writable_props = ["primaryKey", "createdAt", "updatedAt", "deletedAt", "schemaName"];
 
     	Object.keys($$props).forEach(key => {
     		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console.warn(`<SettingModal> was created with unknown prop '${key}'`);
     	});
 
-    	$$self.$capture_state = () => ({ removeSettingModel });
-    	return [];
+    	function input1_input_handler() {
+    		primaryKey = this.value;
+    		$$invalidate(0, primaryKey);
+    	}
+
+    	function input3_input_handler() {
+    		createdAt = this.value;
+    		$$invalidate(1, createdAt);
+    	}
+
+    	function input5_input_handler() {
+    		updatedAt = this.value;
+    		$$invalidate(2, updatedAt);
+    	}
+
+    	function input7_input_handler() {
+    		deletedAt = this.value;
+    		$$invalidate(3, deletedAt);
+    	}
+
+    	function input9_input_handler() {
+    		schemaName = this.value;
+    		$$invalidate(4, schemaName);
+    	}
+
+    	$$self.$$set = $$props => {
+    		if ("primaryKey" in $$props) $$invalidate(0, primaryKey = $$props.primaryKey);
+    		if ("createdAt" in $$props) $$invalidate(1, createdAt = $$props.createdAt);
+    		if ("updatedAt" in $$props) $$invalidate(2, updatedAt = $$props.updatedAt);
+    		if ("deletedAt" in $$props) $$invalidate(3, deletedAt = $$props.deletedAt);
+    		if ("schemaName" in $$props) $$invalidate(4, schemaName = $$props.schemaName);
+    	};
+
+    	$$self.$capture_state = () => ({
+    		primaryKey,
+    		createdAt,
+    		updatedAt,
+    		deletedAt,
+    		schemaName,
+    		primaryKeyKeep,
+    		createdAtKeep,
+    		updatedAtKeep,
+    		deletedAtKeep,
+    		schemaNameKeep,
+    		primaryKeyDisable,
+    		createdAtDisable,
+    		updatedAtDisable,
+    		deletedAtDisable,
+    		schemaNameDisable,
+    		onLoad: onLoad$1,
+    		removeSettingModel,
+    		primaryKeyOnChange,
+    		createdAtOnChange,
+    		updatedAtOnChange,
+    		deletedAtOnChange,
+    		SchemaOnChange
+    	});
+
+    	$$self.$inject_state = $$props => {
+    		if ("primaryKey" in $$props) $$invalidate(0, primaryKey = $$props.primaryKey);
+    		if ("createdAt" in $$props) $$invalidate(1, createdAt = $$props.createdAt);
+    		if ("updatedAt" in $$props) $$invalidate(2, updatedAt = $$props.updatedAt);
+    		if ("deletedAt" in $$props) $$invalidate(3, deletedAt = $$props.deletedAt);
+    		if ("schemaName" in $$props) $$invalidate(4, schemaName = $$props.schemaName);
+    		if ("primaryKeyKeep" in $$props) primaryKeyKeep = $$props.primaryKeyKeep;
+    		if ("createdAtKeep" in $$props) createdAtKeep = $$props.createdAtKeep;
+    		if ("updatedAtKeep" in $$props) updatedAtKeep = $$props.updatedAtKeep;
+    		if ("deletedAtKeep" in $$props) deletedAtKeep = $$props.deletedAtKeep;
+    		if ("schemaNameKeep" in $$props) schemaNameKeep = $$props.schemaNameKeep;
+    		if ("primaryKeyDisable" in $$props) $$invalidate(5, primaryKeyDisable = $$props.primaryKeyDisable);
+    		if ("createdAtDisable" in $$props) $$invalidate(6, createdAtDisable = $$props.createdAtDisable);
+    		if ("updatedAtDisable" in $$props) $$invalidate(7, updatedAtDisable = $$props.updatedAtDisable);
+    		if ("deletedAtDisable" in $$props) $$invalidate(8, deletedAtDisable = $$props.deletedAtDisable);
+    		if ("schemaNameDisable" in $$props) $$invalidate(9, schemaNameDisable = $$props.schemaNameDisable);
+    	};
+
+    	if ($$props && "$$inject" in $$props) {
+    		$$self.$inject_state($$props.$$inject);
+    	}
+
+    	return [
+    		primaryKey,
+    		createdAt,
+    		updatedAt,
+    		deletedAt,
+    		schemaName,
+    		primaryKeyDisable,
+    		createdAtDisable,
+    		updatedAtDisable,
+    		deletedAtDisable,
+    		schemaNameDisable,
+    		primaryKeyOnChange,
+    		createdAtOnChange,
+    		updatedAtOnChange,
+    		deletedAtOnChange,
+    		SchemaOnChange,
+    		input1_input_handler,
+    		input3_input_handler,
+    		input5_input_handler,
+    		input7_input_handler,
+    		input9_input_handler
+    	];
     }
 
     class SettingModal extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$1, create_fragment$1, safe_not_equal, {});
+
+    		init(this, options, instance$1, create_fragment$1, safe_not_equal, {
+    			primaryKey: 0,
+    			createdAt: 1,
+    			updatedAt: 2,
+    			deletedAt: 3,
+    			schemaName: 4
+    		});
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
@@ -1637,6 +1888,69 @@ var app = (function () {
     			options,
     			id: create_fragment$1.name
     		});
+
+    		const { ctx } = this.$$;
+    		const props = options.props || {};
+
+    		if (/*primaryKey*/ ctx[0] === undefined && !("primaryKey" in props)) {
+    			console.warn("<SettingModal> was created without expected prop 'primaryKey'");
+    		}
+
+    		if (/*createdAt*/ ctx[1] === undefined && !("createdAt" in props)) {
+    			console.warn("<SettingModal> was created without expected prop 'createdAt'");
+    		}
+
+    		if (/*updatedAt*/ ctx[2] === undefined && !("updatedAt" in props)) {
+    			console.warn("<SettingModal> was created without expected prop 'updatedAt'");
+    		}
+
+    		if (/*deletedAt*/ ctx[3] === undefined && !("deletedAt" in props)) {
+    			console.warn("<SettingModal> was created without expected prop 'deletedAt'");
+    		}
+
+    		if (/*schemaName*/ ctx[4] === undefined && !("schemaName" in props)) {
+    			console.warn("<SettingModal> was created without expected prop 'schemaName'");
+    		}
+    	}
+
+    	get primaryKey() {
+    		throw new Error("<SettingModal>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set primaryKey(value) {
+    		throw new Error("<SettingModal>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get createdAt() {
+    		throw new Error("<SettingModal>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set createdAt(value) {
+    		throw new Error("<SettingModal>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get updatedAt() {
+    		throw new Error("<SettingModal>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set updatedAt(value) {
+    		throw new Error("<SettingModal>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get deletedAt() {
+    		throw new Error("<SettingModal>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set deletedAt(value) {
+    		throw new Error("<SettingModal>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get schemaName() {
+    		throw new Error("<SettingModal>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set schemaName(value) {
+    		throw new Error("<SettingModal>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     	}
     }
 
@@ -1671,6 +1985,11 @@ var app = (function () {
     	let textarea;
     	let t7;
     	let settingmodal;
+    	let updating_primaryKey;
+    	let updating_createdAt;
+    	let updating_updatedAt;
+    	let updating_deletedAt;
+    	let updating_schemaName;
     	let t8;
     	let footer;
     	let current;
@@ -1678,15 +1997,15 @@ var app = (function () {
     	let dispose;
 
     	function leftinput_database_binding(value) {
-    		/*leftinput_database_binding*/ ctx[11](value);
+    		/*leftinput_database_binding*/ ctx[16](value);
     	}
 
     	function leftinput_selectedDatabase_binding(value) {
-    		/*leftinput_selectedDatabase_binding*/ ctx[12](value);
+    		/*leftinput_selectedDatabase_binding*/ ctx[17](value);
     	}
 
     	function leftinput_leftText_binding(value) {
-    		/*leftinput_leftText_binding*/ ctx[13](value);
+    		/*leftinput_leftText_binding*/ ctx[18](value);
     	}
 
     	let leftinput_props = {};
@@ -1709,23 +2028,23 @@ var app = (function () {
     	binding_callbacks.push(() => bind(leftinput, "leftText", leftinput_leftText_binding));
 
     	function rightinput_orm_binding(value) {
-    		/*rightinput_orm_binding*/ ctx[14](value);
+    		/*rightinput_orm_binding*/ ctx[19](value);
     	}
 
     	function rightinput_selectedOrm_binding(value) {
-    		/*rightinput_selectedOrm_binding*/ ctx[15](value);
+    		/*rightinput_selectedOrm_binding*/ ctx[20](value);
     	}
 
     	function rightinput_rightText_binding(value) {
-    		/*rightinput_rightText_binding*/ ctx[16](value);
+    		/*rightinput_rightText_binding*/ ctx[21](value);
     	}
 
     	function rightinput_selectedFieldname_binding(value) {
-    		/*rightinput_selectedFieldname_binding*/ ctx[17](value);
+    		/*rightinput_selectedFieldname_binding*/ ctx[22](value);
     	}
 
     	function rightinput_fieldname_binding(value) {
-    		/*rightinput_fieldname_binding*/ ctx[18](value);
+    		/*rightinput_fieldname_binding*/ ctx[23](value);
     	}
 
     	let rightinput_props = {};
@@ -1756,7 +2075,59 @@ var app = (function () {
     	binding_callbacks.push(() => bind(rightinput, "rightText", rightinput_rightText_binding));
     	binding_callbacks.push(() => bind(rightinput, "selectedFieldname", rightinput_selectedFieldname_binding));
     	binding_callbacks.push(() => bind(rightinput, "fieldname", rightinput_fieldname_binding));
-    	settingmodal = new SettingModal({ $$inline: true });
+
+    	function settingmodal_primaryKey_binding(value) {
+    		/*settingmodal_primaryKey_binding*/ ctx[24](value);
+    	}
+
+    	function settingmodal_createdAt_binding(value) {
+    		/*settingmodal_createdAt_binding*/ ctx[25](value);
+    	}
+
+    	function settingmodal_updatedAt_binding(value) {
+    		/*settingmodal_updatedAt_binding*/ ctx[26](value);
+    	}
+
+    	function settingmodal_deletedAt_binding(value) {
+    		/*settingmodal_deletedAt_binding*/ ctx[27](value);
+    	}
+
+    	function settingmodal_schemaName_binding(value) {
+    		/*settingmodal_schemaName_binding*/ ctx[28](value);
+    	}
+
+    	let settingmodal_props = {};
+
+    	if (/*primaryKey*/ ctx[9] !== void 0) {
+    		settingmodal_props.primaryKey = /*primaryKey*/ ctx[9];
+    	}
+
+    	if (/*createdAt*/ ctx[10] !== void 0) {
+    		settingmodal_props.createdAt = /*createdAt*/ ctx[10];
+    	}
+
+    	if (/*updatedAt*/ ctx[11] !== void 0) {
+    		settingmodal_props.updatedAt = /*updatedAt*/ ctx[11];
+    	}
+
+    	if (/*deletedAt*/ ctx[12] !== void 0) {
+    		settingmodal_props.deletedAt = /*deletedAt*/ ctx[12];
+    	}
+
+    	if (/*schemaName*/ ctx[13] !== void 0) {
+    		settingmodal_props.schemaName = /*schemaName*/ ctx[13];
+    	}
+
+    	settingmodal = new SettingModal({
+    			props: settingmodal_props,
+    			$$inline: true
+    		});
+
+    	binding_callbacks.push(() => bind(settingmodal, "primaryKey", settingmodal_primaryKey_binding));
+    	binding_callbacks.push(() => bind(settingmodal, "createdAt", settingmodal_createdAt_binding));
+    	binding_callbacks.push(() => bind(settingmodal, "updatedAt", settingmodal_updatedAt_binding));
+    	binding_callbacks.push(() => bind(settingmodal, "deletedAt", settingmodal_deletedAt_binding));
+    	binding_callbacks.push(() => bind(settingmodal, "schemaName", settingmodal_schemaName_binding));
     	footer = new Footer({ $$inline: true });
 
     	const block = {
@@ -1783,21 +2154,21 @@ var app = (function () {
     			create_component(settingmodal.$$.fragment);
     			t8 = space();
     			create_component(footer.$$.fragment);
-    			add_location(hr, file, 35, 2, 937);
+    			add_location(hr, file, 41, 2, 1179);
     			attr_dev(div0, "class", "top svelte-rhu95f");
-    			add_location(div0, file, 36, 2, 947);
-    			add_location(button, file, 47, 4, 1212);
-    			add_location(br0, file, 47, 51, 1259);
-    			add_location(br1, file, 47, 57, 1265);
-    			add_location(br2, file, 49, 14, 1289);
+    			add_location(div0, file, 42, 2, 1189);
+    			add_location(button, file, 53, 4, 1454);
+    			add_location(br0, file, 53, 51, 1501);
+    			add_location(br1, file, 53, 57, 1507);
+    			add_location(br2, file, 55, 14, 1531);
     			textarea.readOnly = true;
     			attr_dev(textarea, "id", "error-textarea");
     			textarea.value = /*errorLog*/ ctx[8];
     			attr_dev(textarea, "class", "svelte-rhu95f");
-    			add_location(textarea, file, 50, 4, 1301);
+    			add_location(textarea, file, 56, 4, 1543);
     			attr_dev(div1, "class", "bottom svelte-rhu95f");
-    			add_location(div1, file, 46, 2, 1186);
-    			add_location(main, file, 34, 0, 927);
+    			add_location(div1, file, 52, 2, 1428);
+    			add_location(main, file, 40, 0, 1152);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -1827,7 +2198,11 @@ var app = (function () {
     			current = true;
 
     			if (!mounted) {
-    				dispose = listen_dev(button, "click", /*onButtonClicked*/ ctx[9], false, false, false);
+    				dispose = [
+    					listen_dev(button, "click", /*onButtonClicked*/ ctx[14], false, false, false),
+    					listen_dev(main, "load", onLoad, false, false, false)
+    				];
+
     				mounted = true;
     			}
     		},
@@ -1890,6 +2265,40 @@ var app = (function () {
     			if (!current || dirty & /*errorLog*/ 256) {
     				prop_dev(textarea, "value", /*errorLog*/ ctx[8]);
     			}
+
+    			const settingmodal_changes = {};
+
+    			if (!updating_primaryKey && dirty & /*primaryKey*/ 512) {
+    				updating_primaryKey = true;
+    				settingmodal_changes.primaryKey = /*primaryKey*/ ctx[9];
+    				add_flush_callback(() => updating_primaryKey = false);
+    			}
+
+    			if (!updating_createdAt && dirty & /*createdAt*/ 1024) {
+    				updating_createdAt = true;
+    				settingmodal_changes.createdAt = /*createdAt*/ ctx[10];
+    				add_flush_callback(() => updating_createdAt = false);
+    			}
+
+    			if (!updating_updatedAt && dirty & /*updatedAt*/ 2048) {
+    				updating_updatedAt = true;
+    				settingmodal_changes.updatedAt = /*updatedAt*/ ctx[11];
+    				add_flush_callback(() => updating_updatedAt = false);
+    			}
+
+    			if (!updating_deletedAt && dirty & /*deletedAt*/ 4096) {
+    				updating_deletedAt = true;
+    				settingmodal_changes.deletedAt = /*deletedAt*/ ctx[12];
+    				add_flush_callback(() => updating_deletedAt = false);
+    			}
+
+    			if (!updating_schemaName && dirty & /*schemaName*/ 8192) {
+    				updating_schemaName = true;
+    				settingmodal_changes.schemaName = /*schemaName*/ ctx[13];
+    				add_flush_callback(() => updating_schemaName = false);
+    			}
+
+    			settingmodal.$set(settingmodal_changes);
     		},
     		i: function intro(local) {
     			if (current) return;
@@ -1913,7 +2322,7 @@ var app = (function () {
     			destroy_component(settingmodal);
     			destroy_component(footer);
     			mounted = false;
-    			dispose();
+    			run_all(dispose);
     		}
     	};
 
@@ -1926,6 +2335,10 @@ var app = (function () {
     	});
 
     	return block;
+    }
+
+    function onLoad() {
+    	
     }
 
     function instance($$self, $$props, $$invalidate) {
@@ -1942,6 +2355,11 @@ var app = (function () {
     	let leftText = "";
     	let rightText = "";
     	let errorLog = "";
+    	let primaryKey = "id";
+    	let createdAt = "created_at";
+    	let updatedAt = "updated_at";
+    	let deletedAt = "deleted_at";
+    	let schemaName = "public";
 
     	function onButtonClicked() {
     		if (selectedDatabase === null) {
@@ -1955,7 +2373,7 @@ var app = (function () {
     		}
 
     		try {
-    			$$invalidate(7, rightText = convert(leftText, selectedDatabase, selectedOrm, selectedFieldname));
+    			$$invalidate(7, rightText = convert(leftText, selectedDatabase, selectedOrm, selectedFieldname, primaryKey, createdAt, updatedAt, deletedAt, schemaName));
     		} catch(error) {
     			alert("오류 발생");
     			$$invalidate(8, errorLog = JSON.stringify(error));
@@ -2008,11 +2426,36 @@ var app = (function () {
     		$$invalidate(2, fieldname);
     	}
 
+    	function settingmodal_primaryKey_binding(value) {
+    		primaryKey = value;
+    		$$invalidate(9, primaryKey);
+    	}
+
+    	function settingmodal_createdAt_binding(value) {
+    		createdAt = value;
+    		$$invalidate(10, createdAt);
+    	}
+
+    	function settingmodal_updatedAt_binding(value) {
+    		updatedAt = value;
+    		$$invalidate(11, updatedAt);
+    	}
+
+    	function settingmodal_deletedAt_binding(value) {
+    		deletedAt = value;
+    		$$invalidate(12, deletedAt);
+    	}
+
+    	function settingmodal_schemaName_binding(value) {
+    		schemaName = value;
+    		$$invalidate(13, schemaName);
+    	}
+
     	$$self.$$set = $$props => {
     		if ("database" in $$props) $$invalidate(0, database = $$props.database);
     		if ("orm" in $$props) $$invalidate(1, orm = $$props.orm);
     		if ("fieldname" in $$props) $$invalidate(2, fieldname = $$props.fieldname);
-    		if ("convert" in $$props) $$invalidate(10, convert = $$props.convert);
+    		if ("convert" in $$props) $$invalidate(15, convert = $$props.convert);
     	};
 
     	$$self.$capture_state = () => ({
@@ -2030,20 +2473,31 @@ var app = (function () {
     		leftText,
     		rightText,
     		errorLog,
-    		onButtonClicked
+    		primaryKey,
+    		createdAt,
+    		updatedAt,
+    		deletedAt,
+    		schemaName,
+    		onButtonClicked,
+    		onLoad
     	});
 
     	$$self.$inject_state = $$props => {
     		if ("database" in $$props) $$invalidate(0, database = $$props.database);
     		if ("orm" in $$props) $$invalidate(1, orm = $$props.orm);
     		if ("fieldname" in $$props) $$invalidate(2, fieldname = $$props.fieldname);
-    		if ("convert" in $$props) $$invalidate(10, convert = $$props.convert);
+    		if ("convert" in $$props) $$invalidate(15, convert = $$props.convert);
     		if ("selectedDatabase" in $$props) $$invalidate(3, selectedDatabase = $$props.selectedDatabase);
     		if ("selectedOrm" in $$props) $$invalidate(4, selectedOrm = $$props.selectedOrm);
     		if ("selectedFieldname" in $$props) $$invalidate(5, selectedFieldname = $$props.selectedFieldname);
     		if ("leftText" in $$props) $$invalidate(6, leftText = $$props.leftText);
     		if ("rightText" in $$props) $$invalidate(7, rightText = $$props.rightText);
     		if ("errorLog" in $$props) $$invalidate(8, errorLog = $$props.errorLog);
+    		if ("primaryKey" in $$props) $$invalidate(9, primaryKey = $$props.primaryKey);
+    		if ("createdAt" in $$props) $$invalidate(10, createdAt = $$props.createdAt);
+    		if ("updatedAt" in $$props) $$invalidate(11, updatedAt = $$props.updatedAt);
+    		if ("deletedAt" in $$props) $$invalidate(12, deletedAt = $$props.deletedAt);
+    		if ("schemaName" in $$props) $$invalidate(13, schemaName = $$props.schemaName);
     	};
 
     	if ($$props && "$$inject" in $$props) {
@@ -2060,6 +2514,11 @@ var app = (function () {
     		leftText,
     		rightText,
     		errorLog,
+    		primaryKey,
+    		createdAt,
+    		updatedAt,
+    		deletedAt,
+    		schemaName,
     		onButtonClicked,
     		convert,
     		leftinput_database_binding,
@@ -2069,7 +2528,12 @@ var app = (function () {
     		rightinput_selectedOrm_binding,
     		rightinput_rightText_binding,
     		rightinput_selectedFieldname_binding,
-    		rightinput_fieldname_binding
+    		rightinput_fieldname_binding,
+    		settingmodal_primaryKey_binding,
+    		settingmodal_createdAt_binding,
+    		settingmodal_updatedAt_binding,
+    		settingmodal_deletedAt_binding,
+    		settingmodal_schemaName_binding
     	];
     }
 
@@ -2081,7 +2545,7 @@ var app = (function () {
     			database: 0,
     			orm: 1,
     			fieldname: 2,
-    			convert: 10
+    			convert: 15
     		});
 
     		dispatch_dev("SvelteRegisterComponent", {
@@ -2106,7 +2570,7 @@ var app = (function () {
     			console.warn("<App> was created without expected prop 'fieldname'");
     		}
 
-    		if (/*convert*/ ctx[10] === undefined && !("convert" in props)) {
+    		if (/*convert*/ ctx[15] === undefined && !("convert" in props)) {
     			console.warn("<App> was created without expected prop 'convert'");
     		}
     	}
@@ -11264,7 +11728,7 @@ ${table.columns.map((column) => this.generateColumn(column)).join("\n\n")}
 
     });
 
-    function convert(query, database, orm, fieldname) {
+    function convert(query, database, orm, fieldname, primaryKey, createdAt, updatedAt, deletedAt, schemaName) {
         let parser = null;
         let emitter = null;
         switch (database) {
@@ -11299,7 +11763,16 @@ ${table.columns.map((column) => this.generateColumn(column)).join("\n\n")}
                 console.error("!! 지원되지 않는 ORM입니다.");
                 return;
         }
-        const emitOption = { sourceSplit: true, outputFieldNameCase: fieldname };
+        const emitOption = {
+            sourceSplit: true,
+            outputFieldNameCase: fieldname,
+            outputClassNameCase: "PASCAL",
+            autoAddPrimaryKey: primaryKey,
+            autoAddCreatedAt: createdAt,
+            autoAddUpdatedAt: updatedAt,
+            autoAddDeletedAt: deletedAt,
+            databaseName: schemaName,
+        };
         console.log(emitOption);
         const tables = parser.parse(query + ";");
         const sources = emitter.emit(tables, emitOption);

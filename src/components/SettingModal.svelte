@@ -1,11 +1,87 @@
 <script>
+  // 세팅 모달용 props 값
+  export let primaryKey;
+  export let createdAt;
+  export let updatedAt;
+  export let deletedAt;
+  export let schemaName;
+
+  let primaryKeyKeep;
+  let createdAtKeep;
+  let updatedAtKeep;
+  let deletedAtKeep;
+  let schemaNameKeep;
+
+  let primaryKeyDisable = false;
+  let createdAtDisable = false;
+  let updatedAtDisable = false;
+  let deletedAtDisable = false;
+  let schemaNameDisable = false;
+
+  function onLoad() {}
+
   function removeSettingModel() {
     const modal = document.getElementById("modal");
     modal.style.display = "none";
   }
+
+  function primaryKeyOnChange(value) {
+    if (value.target.checked) {
+      primaryKey = primaryKeyKeep;
+      primaryKeyDisable = false;
+    } else {
+      primaryKeyKeep = primaryKey;
+      primaryKey = null;
+      primaryKeyDisable = true;
+    }
+  }
+
+  function createdAtOnChange(value) {
+    if (value.target.checked) {
+      createdAt = createdAtKeep;
+      createdAtDisable = false;
+    } else {
+      createdAtKeep = createdAt;
+      createdAt = null;
+      createdAtDisable = true;
+    }
+  }
+
+  function updatedAtOnChange(value) {
+    if (value.target.checked) {
+      updatedAt = updatedAtKeep;
+      updatedAtDisable = false;
+    } else {
+      updatedAtKeep = updatedAt;
+      updatedAt = null;
+      updatedAtDisable = true;
+    }
+  }
+
+  function deletedAtOnChange(value) {
+    if (value.target.checked) {
+      deletedAt = deletedAtKeep;
+      deletedAtDisable = false;
+    } else {
+      deletedAtKeep = deletedAt;
+      deletedAt = null;
+      deletedAtDisable = true;
+    }
+  }
+
+  function SchemaOnChange(value) {
+    if (value.target.checked) {
+      schemaName = schemaNameKeep;
+      schemaNameDisable = false;
+    } else {
+      schemaNameKeep = schemaName;
+      schemaName = null;
+      schemaNameDisable = true;
+    }
+  }
 </script>
 
-<main>
+<main on:load={onLoad}>
   <div id="modal" class="modal-overlay">
     <div class="modal-window">
       <div class="title">
@@ -19,20 +95,36 @@
           Primary Key
 
           <span>
-            <input class="checkbox" id="pk-check" type="checkbox" /><input
+            <input
+              class="checkbox"
+              id="pk-check"
+              type="checkbox"
+              checked
+              on:change={primaryKeyOnChange}
+            /><input
+              bind:value={primaryKey}
               class="input-text"
               id="pk"
               type="text"
+              disabled={primaryKeyDisable}
             /></span
           >
         </div>
 
         <div class="content-item">
           CreatedAt <span
-            ><input class="checkbox" id="pk-check" type="checkbox" /><input
+            ><input
+              class="checkbox"
+              id="created-at-check"
+              type="checkbox"
+              checked
+              on:change={createdAtOnChange}
+            /><input
+              bind:value={createdAt}
               class="input-text"
               id="created-at"
               type="text"
+              disabled={createdAtDisable}
             /></span
           >
         </div>
@@ -43,7 +135,15 @@
               class="checkbox"
               id="updated-at-check"
               type="checkbox"
-            /><input class="input-text" id="updated-at" type="text" /></span
+              checked
+              on:change={updatedAtOnChange}
+            /><input
+              bind:value={updatedAt}
+              class="input-text"
+              id="updated-at"
+              type="text"
+              disabled={updatedAtDisable}
+            /></span
           >
         </div>
 
@@ -53,7 +153,15 @@
               id="deleted-at-check"
               class="checkbox"
               type="checkbox"
-            /><input class="input-text" id="deleted-at" type="text" /></span
+              checked
+              on:change={deletedAtOnChange}
+            /><input
+              bind:value={deletedAt}
+              class="input-text"
+              id="deleted-at"
+              type="text"
+              disabled={deletedAtDisable}
+            /></span
           >
         </div>
 
@@ -63,7 +171,15 @@
               class="checkbox"
               id="schema-name-check"
               type="checkbox"
-            /><input class="input-text" id="schema-name" type="text" /></span
+              checked
+              on:change={SchemaOnChange}
+            /><input
+              bind:value={schemaName}
+              class="input-text"
+              id="schema-name"
+              type="text"
+              disabled={schemaNameDisable}
+            /></span
           >
         </div>
       </div>
