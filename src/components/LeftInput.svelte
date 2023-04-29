@@ -2,6 +2,8 @@
   export let selectedDatabase;
   export let leftText;
   export let database;
+
+  export let onTextChange;
 </script>
 
 <main>
@@ -12,7 +14,11 @@
           <option value={option.value}>{option.view}</option>
         {/each}</select
       > <br />
-      <textarea bind:value={leftText} class="top-textarea" />
+      <textarea
+        bind:value={leftText}
+        class="top-textarea"
+        on:keyup={onTextChange}
+      />
     </div>
   </div>
 </main>

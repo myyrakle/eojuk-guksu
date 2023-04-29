@@ -25,7 +25,7 @@
   let deletedAt: string = "deleted_at";
   let schemaName: string = "public";
 
-  function onButtonClicked() {
+  function generateORM() {
     if (selectedDatabase === null) {
       alert("데이터베이스를 선택해주세요.");
       return;
@@ -60,7 +60,12 @@
 <main on:load={onLoad}>
   <hr />
   <div class="top">
-    <LeftInput bind:database bind:selectedDatabase bind:leftText />
+    <LeftInput
+      bind:database
+      bind:selectedDatabase
+      bind:leftText
+      onTextChange={generateORM}
+    />
     <RightInput
       bind:orm
       bind:selectedOrm
@@ -70,9 +75,7 @@
     />
   </div>
   <div class="bottom">
-    <button on:click={onButtonClicked}>변환</button> <br /><br />
-
-    Error Log <br />
+     Error Log <br />
     <textarea readonly id="error-textarea">{errorLog}</textarea>
   </div>
 

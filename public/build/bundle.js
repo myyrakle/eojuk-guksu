@@ -627,14 +627,14 @@ var app = (function () {
 
     function get_each_context$1(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[5] = list[i];
+    	child_ctx[6] = list[i];
     	return child_ctx;
     }
 
-    // (11:9) {#each database as option}
+    // (13:9) {#each database as option}
     function create_each_block$1(ctx) {
     	let option;
-    	let t_value = /*option*/ ctx[5].view + "";
+    	let t_value = /*option*/ ctx[6].view + "";
     	let t;
     	let option_value_value;
 
@@ -642,18 +642,18 @@ var app = (function () {
     		c: function create() {
     			option = element("option");
     			t = text(t_value);
-    			option.__value = option_value_value = /*option*/ ctx[5].value;
+    			option.__value = option_value_value = /*option*/ ctx[6].value;
     			option.value = option.__value;
-    			add_location(option, file$3, 11, 10, 272);
+    			add_location(option, file$3, 13, 10, 302);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, option, anchor);
     			append_dev(option, t);
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty & /*database*/ 4 && t_value !== (t_value = /*option*/ ctx[5].view + "")) set_data_dev(t, t_value);
+    			if (dirty & /*database*/ 4 && t_value !== (t_value = /*option*/ ctx[6].view + "")) set_data_dev(t, t_value);
 
-    			if (dirty & /*database*/ 4 && option_value_value !== (option_value_value = /*option*/ ctx[5].value)) {
+    			if (dirty & /*database*/ 4 && option_value_value !== (option_value_value = /*option*/ ctx[6].value)) {
     				prop_dev(option, "__value", option_value_value);
     				option.value = option.__value;
     			}
@@ -667,7 +667,7 @@ var app = (function () {
     		block,
     		id: create_each_block$1.name,
     		type: "each",
-    		source: "(11:9) {#each database as option}",
+    		source: "(13:9) {#each database as option}",
     		ctx
     	});
 
@@ -709,16 +709,16 @@ var app = (function () {
     			t1 = space();
     			textarea = element("textarea");
     			attr_dev(select, "id", "left-select");
-    			if (/*selectedDatabase*/ ctx[0] === void 0) add_render_callback(() => /*select_change_handler*/ ctx[3].call(select));
-    			add_location(select, file$3, 9, 6, 169);
-    			add_location(br, file$3, 13, 8, 358);
+    			if (/*selectedDatabase*/ ctx[0] === void 0) add_render_callback(() => /*select_change_handler*/ ctx[4].call(select));
+    			add_location(select, file$3, 11, 6, 199);
+    			add_location(br, file$3, 15, 8, 388);
     			attr_dev(textarea, "class", "top-textarea svelte-1r6uqut");
-    			add_location(textarea, file$3, 14, 6, 372);
+    			add_location(textarea, file$3, 16, 6, 402);
     			attr_dev(div0, "class", "left-inner svelte-1r6uqut");
-    			add_location(div0, file$3, 8, 4, 137);
+    			add_location(div0, file$3, 10, 4, 167);
     			attr_dev(div1, "class", "left svelte-1r6uqut");
-    			add_location(div1, file$3, 7, 2, 113);
-    			add_location(main, file$3, 6, 0, 103);
+    			add_location(div1, file$3, 9, 2, 143);
+    			add_location(main, file$3, 8, 0, 133);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -742,14 +742,26 @@ var app = (function () {
 
     			if (!mounted) {
     				dispose = [
-    					listen_dev(select, "change", /*select_change_handler*/ ctx[3]),
-    					listen_dev(textarea, "input", /*textarea_input_handler*/ ctx[4])
+    					listen_dev(select, "change", /*select_change_handler*/ ctx[4]),
+    					listen_dev(textarea, "input", /*textarea_input_handler*/ ctx[5]),
+    					listen_dev(
+    						textarea,
+    						"keyup",
+    						function () {
+    							if (is_function(/*onTextChange*/ ctx[3])) /*onTextChange*/ ctx[3].apply(this, arguments);
+    						},
+    						false,
+    						false,
+    						false
+    					)
     				];
 
     				mounted = true;
     			}
     		},
-    		p: function update(ctx, [dirty]) {
+    		p: function update(new_ctx, [dirty]) {
+    			ctx = new_ctx;
+
     			if (dirty & /*database*/ 4) {
     				each_value = /*database*/ ctx[2];
     				validate_each_argument(each_value);
@@ -809,7 +821,8 @@ var app = (function () {
     	let { selectedDatabase } = $$props;
     	let { leftText } = $$props;
     	let { database } = $$props;
-    	const writable_props = ["selectedDatabase", "leftText", "database"];
+    	let { onTextChange } = $$props;
+    	const writable_props = ["selectedDatabase", "leftText", "database", "onTextChange"];
 
     	Object.keys($$props).forEach(key => {
     		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console.warn(`<LeftInput> was created with unknown prop '${key}'`);
@@ -830,14 +843,21 @@ var app = (function () {
     		if ("selectedDatabase" in $$props) $$invalidate(0, selectedDatabase = $$props.selectedDatabase);
     		if ("leftText" in $$props) $$invalidate(1, leftText = $$props.leftText);
     		if ("database" in $$props) $$invalidate(2, database = $$props.database);
+    		if ("onTextChange" in $$props) $$invalidate(3, onTextChange = $$props.onTextChange);
     	};
 
-    	$$self.$capture_state = () => ({ selectedDatabase, leftText, database });
+    	$$self.$capture_state = () => ({
+    		selectedDatabase,
+    		leftText,
+    		database,
+    		onTextChange
+    	});
 
     	$$self.$inject_state = $$props => {
     		if ("selectedDatabase" in $$props) $$invalidate(0, selectedDatabase = $$props.selectedDatabase);
     		if ("leftText" in $$props) $$invalidate(1, leftText = $$props.leftText);
     		if ("database" in $$props) $$invalidate(2, database = $$props.database);
+    		if ("onTextChange" in $$props) $$invalidate(3, onTextChange = $$props.onTextChange);
     	};
 
     	if ($$props && "$$inject" in $$props) {
@@ -848,6 +868,7 @@ var app = (function () {
     		selectedDatabase,
     		leftText,
     		database,
+    		onTextChange,
     		select_change_handler,
     		textarea_input_handler
     	];
@@ -860,7 +881,8 @@ var app = (function () {
     		init(this, options, instance$3, create_fragment$3, safe_not_equal, {
     			selectedDatabase: 0,
     			leftText: 1,
-    			database: 2
+    			database: 2,
+    			onTextChange: 3
     		});
 
     		dispatch_dev("SvelteRegisterComponent", {
@@ -883,6 +905,10 @@ var app = (function () {
 
     		if (/*database*/ ctx[2] === undefined && !("database" in props)) {
     			console.warn("<LeftInput> was created without expected prop 'database'");
+    		}
+
+    		if (/*onTextChange*/ ctx[3] === undefined && !("onTextChange" in props)) {
+    			console.warn("<LeftInput> was created without expected prop 'onTextChange'");
     		}
     	}
 
@@ -907,6 +933,14 @@ var app = (function () {
     	}
 
     	set database(value) {
+    		throw new Error("<LeftInput>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get onTextChange() {
+    		throw new Error("<LeftInput>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set onTextChange(value) {
     		throw new Error("<LeftInput>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     	}
     }
@@ -1975,22 +2009,18 @@ var app = (function () {
     	let updating_fieldname;
     	let t2;
     	let div1;
-    	let button;
+    	let t3;
+    	let br;
     	let t4;
-    	let br0;
-    	let br1;
-    	let t5;
-    	let br2;
-    	let t6;
     	let textarea;
-    	let t7;
+    	let t5;
     	let settingmodal;
     	let updating_primaryKey;
     	let updating_createdAt;
     	let updating_updatedAt;
     	let updating_deletedAt;
     	let updating_schemaName;
-    	let t8;
+    	let t6;
     	let footer;
     	let current;
     	let mounted;
@@ -2008,7 +2038,7 @@ var app = (function () {
     		/*leftinput_leftText_binding*/ ctx[18](value);
     	}
 
-    	let leftinput_props = {};
+    	let leftinput_props = { onTextChange: /*generateORM*/ ctx[14] };
 
     	if (/*database*/ ctx[0] !== void 0) {
     		leftinput_props.database = /*database*/ ctx[0];
@@ -2141,34 +2171,26 @@ var app = (function () {
     			create_component(rightinput.$$.fragment);
     			t2 = space();
     			div1 = element("div");
-    			button = element("button");
-    			button.textContent = "변환";
+    			t3 = text("Error Log ");
+    			br = element("br");
     			t4 = space();
-    			br0 = element("br");
-    			br1 = element("br");
-    			t5 = text("\r\n\r\n    Error Log ");
-    			br2 = element("br");
-    			t6 = space();
     			textarea = element("textarea");
-    			t7 = space();
+    			t5 = space();
     			create_component(settingmodal.$$.fragment);
-    			t8 = space();
+    			t6 = space();
     			create_component(footer.$$.fragment);
-    			add_location(hr, file, 41, 2, 1179);
+    			add_location(hr, file, 41, 2, 1175);
     			attr_dev(div0, "class", "top svelte-rhu95f");
-    			add_location(div0, file, 42, 2, 1189);
-    			add_location(button, file, 53, 4, 1454);
-    			add_location(br0, file, 53, 51, 1501);
-    			add_location(br1, file, 53, 57, 1507);
-    			add_location(br2, file, 55, 14, 1531);
+    			add_location(div0, file, 42, 2, 1185);
+    			add_location(br, file, 58, 15, 1521);
     			textarea.readOnly = true;
     			attr_dev(textarea, "id", "error-textarea");
     			textarea.value = /*errorLog*/ ctx[8];
     			attr_dev(textarea, "class", "svelte-rhu95f");
-    			add_location(textarea, file, 56, 4, 1543);
+    			add_location(textarea, file, 59, 4, 1533);
     			attr_dev(div1, "class", "bottom svelte-rhu95f");
-    			add_location(div1, file, 52, 2, 1428);
-    			add_location(main, file, 40, 0, 1152);
+    			add_location(div1, file, 57, 2, 1484);
+    			add_location(main, file, 40, 0, 1148);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -2183,26 +2205,18 @@ var app = (function () {
     			mount_component(rightinput, div0, null);
     			append_dev(main, t2);
     			append_dev(main, div1);
-    			append_dev(div1, button);
+    			append_dev(div1, t3);
+    			append_dev(div1, br);
     			append_dev(div1, t4);
-    			append_dev(div1, br0);
-    			append_dev(div1, br1);
-    			append_dev(div1, t5);
-    			append_dev(div1, br2);
-    			append_dev(div1, t6);
     			append_dev(div1, textarea);
-    			append_dev(main, t7);
+    			append_dev(main, t5);
     			mount_component(settingmodal, main, null);
-    			append_dev(main, t8);
+    			append_dev(main, t6);
     			mount_component(footer, main, null);
     			current = true;
 
     			if (!mounted) {
-    				dispose = [
-    					listen_dev(button, "click", /*onButtonClicked*/ ctx[14], false, false, false),
-    					listen_dev(main, "load", onLoad, false, false, false)
-    				];
-
+    				dispose = listen_dev(main, "load", onLoad, false, false, false);
     				mounted = true;
     			}
     		},
@@ -2322,7 +2336,7 @@ var app = (function () {
     			destroy_component(settingmodal);
     			destroy_component(footer);
     			mounted = false;
-    			run_all(dispose);
+    			dispose();
     		}
     	};
 
@@ -2361,7 +2375,7 @@ var app = (function () {
     	let deletedAt = "deleted_at";
     	let schemaName = "public";
 
-    	function onButtonClicked() {
+    	function generateORM() {
     		if (selectedDatabase === null) {
     			alert("데이터베이스를 선택해주세요.");
     			return;
@@ -2478,7 +2492,7 @@ var app = (function () {
     		updatedAt,
     		deletedAt,
     		schemaName,
-    		onButtonClicked,
+    		generateORM,
     		onLoad
     	});
 
@@ -2519,7 +2533,7 @@ var app = (function () {
     		updatedAt,
     		deletedAt,
     		schemaName,
-    		onButtonClicked,
+    		generateORM,
     		convert,
     		leftinput_database_binding,
     		leftinput_selectedDatabase_binding,
