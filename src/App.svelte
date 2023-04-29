@@ -18,6 +18,14 @@
     selectedDatabase = window.localStorage.getItem("selectedDatabase");
   }
 
+  if (window.localStorage.getItem("selectedOrm") !== null) {
+    selectedOrm = window.localStorage.getItem("selectedOrm");
+  }
+
+  if (window.localStorage.getItem("selectedFieldname") !== null) {
+    selectedFieldname = window.localStorage.getItem("selectedFieldname");
+  }
+
   let leftText: string = "";
   let rightText: string = "";
 

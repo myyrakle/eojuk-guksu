@@ -957,20 +957,20 @@ var app = (function () {
 
     function get_each_context(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[7] = list[i];
+    	child_ctx[9] = list[i];
     	return child_ctx;
     }
 
     function get_each_context_1(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[7] = list[i];
+    	child_ctx[9] = list[i];
     	return child_ctx;
     }
 
-    // (19:9) {#each orm as option}
+    // (23:9) {#each orm as option}
     function create_each_block_1(ctx) {
     	let option;
-    	let t_value = /*option*/ ctx[7].view + "";
+    	let t_value = /*option*/ ctx[9].view + "";
     	let t;
     	let option_value_value;
 
@@ -978,18 +978,18 @@ var app = (function () {
     		c: function create() {
     			option = element("option");
     			t = text(t_value);
-    			option.__value = option_value_value = /*option*/ ctx[7].value;
+    			option.__value = option_value_value = /*option*/ ctx[9].value;
     			option.value = option.__value;
-    			add_location(option, file$2, 19, 10, 457);
+    			add_location(option, file$2, 23, 10, 598);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, option, anchor);
     			append_dev(option, t);
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty & /*orm*/ 8 && t_value !== (t_value = /*option*/ ctx[7].view + "")) set_data_dev(t, t_value);
+    			if (dirty & /*orm*/ 8 && t_value !== (t_value = /*option*/ ctx[9].view + "")) set_data_dev(t, t_value);
 
-    			if (dirty & /*orm*/ 8 && option_value_value !== (option_value_value = /*option*/ ctx[7].value)) {
+    			if (dirty & /*orm*/ 8 && option_value_value !== (option_value_value = /*option*/ ctx[9].value)) {
     				prop_dev(option, "__value", option_value_value);
     				option.value = option.__value;
     			}
@@ -1003,17 +1003,17 @@ var app = (function () {
     		block,
     		id: create_each_block_1.name,
     		type: "each",
-    		source: "(19:9) {#each orm as option}",
+    		source: "(23:9) {#each orm as option}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (24:9) {#each fieldname as option}
+    // (33:9) {#each fieldname as option}
     function create_each_block(ctx) {
     	let option;
-    	let t_value = /*option*/ ctx[7].view + "";
+    	let t_value = /*option*/ ctx[9].view + "";
     	let t;
     	let option_value_value;
     	let option_selected_value;
@@ -1022,24 +1022,24 @@ var app = (function () {
     		c: function create() {
     			option = element("option");
     			t = text(t_value);
-    			option.__value = option_value_value = /*option*/ ctx[7].value;
+    			option.__value = option_value_value = /*option*/ ctx[9].value;
     			option.value = option.__value;
-    			option.selected = option_selected_value = /*option*/ ctx[7].selected;
-    			add_location(option, file$2, 24, 10, 666);
+    			option.selected = option_selected_value = /*option*/ ctx[9].selected;
+    			add_location(option, file$2, 33, 10, 971);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, option, anchor);
     			append_dev(option, t);
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty & /*fieldname*/ 16 && t_value !== (t_value = /*option*/ ctx[7].view + "")) set_data_dev(t, t_value);
+    			if (dirty & /*fieldname*/ 16 && t_value !== (t_value = /*option*/ ctx[9].view + "")) set_data_dev(t, t_value);
 
-    			if (dirty & /*fieldname*/ 16 && option_value_value !== (option_value_value = /*option*/ ctx[7].value)) {
+    			if (dirty & /*fieldname*/ 16 && option_value_value !== (option_value_value = /*option*/ ctx[9].value)) {
     				prop_dev(option, "__value", option_value_value);
     				option.value = option.__value;
     			}
 
-    			if (dirty & /*fieldname*/ 16 && option_selected_value !== (option_selected_value = /*option*/ ctx[7].selected)) {
+    			if (dirty & /*fieldname*/ 16 && option_selected_value !== (option_selected_value = /*option*/ ctx[9].selected)) {
     				prop_dev(option, "selected", option_selected_value);
     			}
     		},
@@ -1052,7 +1052,7 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(24:9) {#each fieldname as option}",
+    		source: "(33:9) {#each fieldname as option}",
     		ctx
     	});
 
@@ -1119,19 +1119,19 @@ var app = (function () {
     			textarea = element("textarea");
     			attr_dev(select0, "id", "right-select");
     			if (/*selectedOrm*/ ctx[0] === void 0) add_render_callback(() => /*select0_change_handler*/ ctx[5].call(select0));
-    			add_location(select0, file$2, 17, 6, 363);
+    			add_location(select0, file$2, 18, 6, 410);
     			attr_dev(select1, "id", "right-select-fieldname");
-    			if (/*selectedFieldname*/ ctx[1] === void 0) add_render_callback(() => /*select1_change_handler*/ ctx[6].call(select1));
-    			add_location(select1, file$2, 22, 6, 550);
+    			if (/*selectedFieldname*/ ctx[1] === void 0) add_render_callback(() => /*select1_change_handler*/ ctx[7].call(select1));
+    			add_location(select1, file$2, 27, 6, 738);
     			set_style(i, "font-size", "24px");
     			attr_dev(i, "class", "fa");
-    			add_location(i, file$2, 30, 9, 861);
-    			add_location(button, file$2, 29, 6, 812);
-    			add_location(br, file$2, 32, 6, 935);
+    			add_location(i, file$2, 39, 9, 1166);
+    			add_location(button, file$2, 38, 6, 1117);
+    			add_location(br, file$2, 41, 6, 1240);
     			textarea.readOnly = true;
     			attr_dev(textarea, "class", "top-textarea svelte-kkkve3");
     			textarea.value = /*rightText*/ ctx[2];
-    			add_location(textarea, file$2, 33, 6, 949);
+    			add_location(textarea, file$2, 42, 6, 1254);
     			attr_dev(div0, "class", "right-inner svelte-kkkve3");
     			add_location(div0, file$2, 16, 4, 330);
     			attr_dev(div1, "class", "right svelte-kkkve3");
@@ -1171,7 +1171,9 @@ var app = (function () {
     			if (!mounted) {
     				dispose = [
     					listen_dev(select0, "change", /*select0_change_handler*/ ctx[5]),
-    					listen_dev(select1, "change", /*select1_change_handler*/ ctx[6]),
+    					listen_dev(select0, "change", /*change_handler*/ ctx[6], false, false, false),
+    					listen_dev(select1, "change", /*select1_change_handler*/ ctx[7]),
+    					listen_dev(select1, "change", /*change_handler_1*/ ctx[8], false, false, false),
     					listen_dev(button, "click", displaySettingModel, false, false, false)
     				];
 
@@ -1286,11 +1288,15 @@ var app = (function () {
     		$$invalidate(3, orm);
     	}
 
+    	const change_handler = () => localStorage.setItem("selectedOrm", selectedOrm);
+
     	function select1_change_handler() {
     		selectedFieldname = select_value(this);
     		$$invalidate(1, selectedFieldname);
     		$$invalidate(4, fieldname);
     	}
+
+    	const change_handler_1 = () => localStorage.setItem("selectedFieldname", selectedFieldname);
 
     	$$self.$$set = $$props => {
     		if ("selectedOrm" in $$props) $$invalidate(0, selectedOrm = $$props.selectedOrm);
@@ -1328,7 +1334,9 @@ var app = (function () {
     		orm,
     		fieldname,
     		select0_change_handler,
-    		select1_change_handler
+    		change_handler,
+    		select1_change_handler,
+    		change_handler_1
     	];
     }
 
@@ -2185,18 +2193,18 @@ var app = (function () {
     			create_component(settingmodal.$$.fragment);
     			t6 = space();
     			create_component(footer.$$.fragment);
-    			add_location(hr, file, 44, 2, 1316);
+    			add_location(hr, file, 50, 2, 1586);
     			attr_dev(div0, "class", "top svelte-rhu95f");
-    			add_location(div0, file, 45, 2, 1326);
-    			add_location(br, file, 61, 14, 1661);
+    			add_location(div0, file, 51, 2, 1596);
+    			add_location(br, file, 67, 14, 1931);
     			textarea.readOnly = true;
     			attr_dev(textarea, "id", "error-textarea");
     			textarea.value = /*errorLog*/ ctx[8];
     			attr_dev(textarea, "class", "svelte-rhu95f");
-    			add_location(textarea, file, 62, 4, 1673);
+    			add_location(textarea, file, 68, 4, 1943);
     			attr_dev(div1, "class", "bottom svelte-rhu95f");
-    			add_location(div1, file, 60, 2, 1625);
-    			add_location(main, file, 43, 0, 1289);
+    			add_location(div1, file, 66, 2, 1895);
+    			add_location(main, file, 49, 0, 1559);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -2375,6 +2383,14 @@ var app = (function () {
 
     	if (window.localStorage.getItem("selectedDatabase") !== null) {
     		selectedDatabase = window.localStorage.getItem("selectedDatabase");
+    	}
+
+    	if (window.localStorage.getItem("selectedOrm") !== null) {
+    		selectedOrm = window.localStorage.getItem("selectedOrm");
+    	}
+
+    	if (window.localStorage.getItem("selectedFieldname") !== null) {
+    		selectedFieldname = window.localStorage.getItem("selectedFieldname");
     	}
 
     	let leftText = "";
