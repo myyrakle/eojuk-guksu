@@ -327,10 +327,10 @@
     "no-case" "^3.0.4"
     "tslib" "^2.0.3"
 
-"eojuk@0.9.0":
-  "integrity" "sha512-4KzAxi69oDpaE9k1dEpHPkynXpy6FSNISXUm/M33AFd3BsKc0k/AwOMzpkdciFpBlp6tVpsRO1UGbmoYqbs2lw=="
-  "resolved" "https://registry.npmjs.org/eojuk/-/eojuk-0.9.0.tgz"
-  "version" "0.9.0"
+"eojuk@0.9.1":
+  "integrity" "sha512-sBSGvhnACdNwTA4CeuG3GtdAWC2sJF+xZAEQoTiuOHN+pv6c8HTcJvT56fWiI64XQONwg26uL0qOqz33mF6MQg=="
+  "resolved" "https://registry.npmjs.org/eojuk/-/eojuk-0.9.1.tgz"
+  "version" "0.9.1"
   dependencies:
     "@angular-devkit/core" "^12.1.4"
     "camelcase" "^6.2.0"
