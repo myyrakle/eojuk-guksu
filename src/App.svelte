@@ -29,6 +29,10 @@
   let leftText: string = "";
   let rightText: string = "";
 
+  if (window.localStorage.getItem("leftText") !== null) {
+    leftText = window.localStorage.getItem("leftText");
+  }
+
   let errorLog: string = "";
 
   let primaryKey: string = "id";
@@ -38,6 +42,8 @@
   let schemaName: string = "public";
 
   function generateORM() {
+    window.localStorage.setItem("leftText", leftText);
+
     if (selectedDatabase === null) {
       alert("데이터베이스를 선택해주세요.");
       return;
@@ -61,7 +67,6 @@
         schemaName
       );
     } catch (error) {
-      alert("오류 발생");
       errorLog = JSON.stringify(error);
     }
   }

@@ -2193,18 +2193,18 @@ var app = (function () {
     			create_component(settingmodal.$$.fragment);
     			t6 = space();
     			create_component(footer.$$.fragment);
-    			add_location(hr, file, 50, 2, 1586);
+    			add_location(hr, file, 53, 2, 1734);
     			attr_dev(div0, "class", "top svelte-rhu95f");
-    			add_location(div0, file, 51, 2, 1596);
-    			add_location(br, file, 67, 14, 1931);
+    			add_location(div0, file, 54, 2, 1744);
+    			add_location(br, file, 70, 14, 2079);
     			textarea.readOnly = true;
     			attr_dev(textarea, "id", "error-textarea");
     			textarea.value = /*errorLog*/ ctx[8];
     			attr_dev(textarea, "class", "svelte-rhu95f");
-    			add_location(textarea, file, 68, 4, 1943);
+    			add_location(textarea, file, 71, 4, 2091);
     			attr_dev(div1, "class", "bottom svelte-rhu95f");
-    			add_location(div1, file, 66, 2, 1895);
-    			add_location(main, file, 49, 0, 1559);
+    			add_location(div1, file, 69, 2, 2043);
+    			add_location(main, file, 52, 0, 1707);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -2395,6 +2395,11 @@ var app = (function () {
 
     	let leftText = "";
     	let rightText = "";
+
+    	if (window.localStorage.getItem("leftText") !== null) {
+    		leftText = window.localStorage.getItem("leftText");
+    	}
+
     	let errorLog = "";
     	let primaryKey = "id";
     	let createdAt = "created_at";
@@ -2403,6 +2408,8 @@ var app = (function () {
     	let schemaName = "public";
 
     	function generateORM() {
+    		window.localStorage.setItem("leftText", leftText);
+
     		if (selectedDatabase === null) {
     			alert("데이터베이스를 선택해주세요.");
     			return;
@@ -2416,7 +2423,6 @@ var app = (function () {
     		try {
     			$$invalidate(7, rightText = convert(leftText, selectedDatabase, selectedOrm, selectedFieldname, primaryKey, createdAt, updatedAt, deletedAt, schemaName));
     		} catch(error) {
-    			alert("오류 발생");
     			$$invalidate(8, errorLog = JSON.stringify(error));
     		}
     	}
