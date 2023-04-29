@@ -627,14 +627,14 @@ var app = (function () {
 
     function get_each_context$1(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[6] = list[i];
+    	child_ctx[7] = list[i];
     	return child_ctx;
     }
 
-    // (13:9) {#each database as option}
+    // (19:9) {#each database as option}
     function create_each_block$1(ctx) {
     	let option;
-    	let t_value = /*option*/ ctx[6].view + "";
+    	let t_value = /*option*/ ctx[7].view + "";
     	let t;
     	let option_value_value;
 
@@ -642,18 +642,18 @@ var app = (function () {
     		c: function create() {
     			option = element("option");
     			t = text(t_value);
-    			option.__value = option_value_value = /*option*/ ctx[6].value;
+    			option.__value = option_value_value = /*option*/ ctx[7].value;
     			option.value = option.__value;
-    			add_location(option, file$3, 13, 10, 302);
+    			add_location(option, file$3, 19, 10, 485);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, option, anchor);
     			append_dev(option, t);
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty & /*database*/ 4 && t_value !== (t_value = /*option*/ ctx[6].view + "")) set_data_dev(t, t_value);
+    			if (dirty & /*database*/ 4 && t_value !== (t_value = /*option*/ ctx[7].view + "")) set_data_dev(t, t_value);
 
-    			if (dirty & /*database*/ 4 && option_value_value !== (option_value_value = /*option*/ ctx[6].value)) {
+    			if (dirty & /*database*/ 4 && option_value_value !== (option_value_value = /*option*/ ctx[7].value)) {
     				prop_dev(option, "__value", option_value_value);
     				option.value = option.__value;
     			}
@@ -667,7 +667,7 @@ var app = (function () {
     		block,
     		id: create_each_block$1.name,
     		type: "each",
-    		source: "(13:9) {#each database as option}",
+    		source: "(19:9) {#each database as option}",
     		ctx
     	});
 
@@ -710,10 +710,10 @@ var app = (function () {
     			textarea = element("textarea");
     			attr_dev(select, "id", "left-select");
     			if (/*selectedDatabase*/ ctx[0] === void 0) add_render_callback(() => /*select_change_handler*/ ctx[4].call(select));
-    			add_location(select, file$3, 11, 6, 199);
-    			add_location(br, file$3, 15, 8, 388);
+    			add_location(select, file$3, 12, 6, 246);
+    			add_location(br, file$3, 21, 8, 571);
     			attr_dev(textarea, "class", "top-textarea svelte-1r6uqut");
-    			add_location(textarea, file$3, 16, 6, 402);
+    			add_location(textarea, file$3, 22, 6, 585);
     			attr_dev(div0, "class", "left-inner svelte-1r6uqut");
     			add_location(div0, file$3, 10, 4, 167);
     			attr_dev(div1, "class", "left svelte-1r6uqut");
@@ -743,7 +743,8 @@ var app = (function () {
     			if (!mounted) {
     				dispose = [
     					listen_dev(select, "change", /*select_change_handler*/ ctx[4]),
-    					listen_dev(textarea, "input", /*textarea_input_handler*/ ctx[5]),
+    					listen_dev(select, "change", /*change_handler*/ ctx[5], false, false, false),
+    					listen_dev(textarea, "input", /*textarea_input_handler*/ ctx[6]),
     					listen_dev(
     						textarea,
     						"keyup",
@@ -834,6 +835,10 @@ var app = (function () {
     		$$invalidate(2, database);
     	}
 
+    	const change_handler = () => {
+    		window.localStorage.setItem("selectedDatabase", selectedDatabase);
+    	};
+
     	function textarea_input_handler() {
     		leftText = this.value;
     		$$invalidate(1, leftText);
@@ -870,6 +875,7 @@ var app = (function () {
     		database,
     		onTextChange,
     		select_change_handler,
+    		change_handler,
     		textarea_input_handler
     	];
     }
@@ -2179,18 +2185,18 @@ var app = (function () {
     			create_component(settingmodal.$$.fragment);
     			t6 = space();
     			create_component(footer.$$.fragment);
-    			add_location(hr, file, 41, 2, 1175);
+    			add_location(hr, file, 44, 2, 1316);
     			attr_dev(div0, "class", "top svelte-rhu95f");
-    			add_location(div0, file, 42, 2, 1185);
-    			add_location(br, file, 58, 15, 1521);
+    			add_location(div0, file, 45, 2, 1326);
+    			add_location(br, file, 61, 14, 1661);
     			textarea.readOnly = true;
     			attr_dev(textarea, "id", "error-textarea");
     			textarea.value = /*errorLog*/ ctx[8];
     			attr_dev(textarea, "class", "svelte-rhu95f");
-    			add_location(textarea, file, 59, 4, 1533);
+    			add_location(textarea, file, 62, 4, 1673);
     			attr_dev(div1, "class", "bottom svelte-rhu95f");
-    			add_location(div1, file, 57, 2, 1484);
-    			add_location(main, file, 40, 0, 1148);
+    			add_location(div1, file, 60, 2, 1625);
+    			add_location(main, file, 43, 0, 1289);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -2366,6 +2372,11 @@ var app = (function () {
     	let selectedDatabase = null;
     	let selectedOrm = null;
     	let selectedFieldname = fieldname[0].value;
+
+    	if (window.localStorage.getItem("selectedDatabase") !== null) {
+    		selectedDatabase = window.localStorage.getItem("selectedDatabase");
+    	}
+
     	let leftText = "";
     	let rightText = "";
     	let errorLog = "";

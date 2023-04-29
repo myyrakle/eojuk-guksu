@@ -9,7 +9,13 @@
 <main>
   <div class="left">
     <div class="left-inner">
-      <select id="left-select" bind:value={selectedDatabase}
+      <!-- svelte-ignore a11y-no-onchange -->
+      <select
+        id="left-select"
+        bind:value={selectedDatabase}
+        on:change={() => {
+          window.localStorage.setItem("selectedDatabase", selectedDatabase);
+        }}
         >{#each database as option}
           <option value={option.value}>{option.view}</option>
         {/each}</select

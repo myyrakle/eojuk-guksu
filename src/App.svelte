@@ -14,6 +14,10 @@
   let selectedOrm = null;
   let selectedFieldname = fieldname[0].value;
 
+  if (window.localStorage.getItem("selectedDatabase") !== null) {
+    selectedDatabase = window.localStorage.getItem("selectedDatabase");
+  }
+
   let leftText: string = "";
   let rightText: string = "";
 
@@ -75,7 +79,7 @@
     />
   </div>
   <div class="bottom">
-     Error Log <br />
+    Error Log <br />
     <textarea readonly id="error-textarea">{errorLog}</textarea>
   </div>
 
