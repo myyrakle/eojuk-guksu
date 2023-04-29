@@ -66,10 +66,13 @@
         deletedAt,
         schemaName
       );
+      errorLog = "No Problem";
     } catch (error) {
       errorLog = JSON.stringify(error);
     }
   }
+
+  generateORM();
 
   function onLoad() {}
 </script>
@@ -81,7 +84,7 @@
       bind:database
       bind:selectedDatabase
       bind:leftText
-      onTextChange={generateORM}
+      {generateORM}
     />
     <RightInput
       bind:orm
@@ -89,6 +92,7 @@
       bind:rightText
       bind:selectedFieldname
       bind:fieldname
+      {generateORM}
     />
   </div>
   <div class="bottom">

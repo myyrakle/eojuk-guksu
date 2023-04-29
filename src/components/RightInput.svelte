@@ -5,6 +5,7 @@
   export let rightText;
   export let orm;
   export let fieldname;
+  export let generateORM;
 
   function displaySettingModel() {
     const modal = document.getElementById("modal");
@@ -19,7 +20,10 @@
       <select
         id="right-select"
         bind:value={selectedOrm}
-        on:change={() => localStorage.setItem("selectedOrm", selectedOrm)}
+        on:change={() => {
+          localStorage.setItem("selectedOrm", selectedOrm);
+          generateORM();
+        }}
         >{#each orm as option}
           <option value={option.value}>{option.view}</option>
         {/each}</select
@@ -28,8 +32,10 @@
       <select
         id="right-select-fieldname"
         bind:value={selectedFieldname}
-        on:change={() =>
-          localStorage.setItem("selectedFieldname", selectedFieldname)}
+        on:change={() => {
+          localStorage.setItem("selectedFieldname", selectedFieldname);
+          generateORM();
+        }}
         >{#each fieldname as option}
           <option value={option.value} selected={option.selected}
             >{option.view}</option

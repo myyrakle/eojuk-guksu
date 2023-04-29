@@ -3,7 +3,7 @@
   export let leftText;
   export let database;
 
-  export let onTextChange;
+  export let generateORM;
 </script>
 
 <main>
@@ -15,6 +15,7 @@
         bind:value={selectedDatabase}
         on:change={() => {
           window.localStorage.setItem("selectedDatabase", selectedDatabase);
+          generateORM();
         }}
         >{#each database as option}
           <option value={option.value}>{option.view}</option>
@@ -23,7 +24,9 @@
       <textarea
         bind:value={leftText}
         class="top-textarea"
-        on:keyup={onTextChange}
+        on:keyup={() => {
+          generateORM();
+        }}
       />
     </div>
   </div>
