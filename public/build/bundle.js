@@ -627,14 +627,14 @@ var app = (function () {
 
     function get_each_context$1(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[5] = list[i];
+    	child_ctx[8] = list[i];
     	return child_ctx;
     }
 
-    // (11:9) {#each database as option}
+    // (20:9) {#each database as option}
     function create_each_block$1(ctx) {
     	let option;
-    	let t_value = /*option*/ ctx[5].view + "";
+    	let t_value = /*option*/ ctx[8].view + "";
     	let t;
     	let option_value_value;
 
@@ -642,18 +642,18 @@ var app = (function () {
     		c: function create() {
     			option = element("option");
     			t = text(t_value);
-    			option.__value = option_value_value = /*option*/ ctx[5].value;
+    			option.__value = option_value_value = /*option*/ ctx[8].value;
     			option.value = option.__value;
-    			add_location(option, file$3, 11, 10, 272);
+    			add_location(option, file$3, 20, 10, 510);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, option, anchor);
     			append_dev(option, t);
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty & /*database*/ 4 && t_value !== (t_value = /*option*/ ctx[5].view + "")) set_data_dev(t, t_value);
+    			if (dirty & /*database*/ 4 && t_value !== (t_value = /*option*/ ctx[8].view + "")) set_data_dev(t, t_value);
 
-    			if (dirty & /*database*/ 4 && option_value_value !== (option_value_value = /*option*/ ctx[5].value)) {
+    			if (dirty & /*database*/ 4 && option_value_value !== (option_value_value = /*option*/ ctx[8].value)) {
     				prop_dev(option, "__value", option_value_value);
     				option.value = option.__value;
     			}
@@ -667,7 +667,7 @@ var app = (function () {
     		block,
     		id: create_each_block$1.name,
     		type: "each",
-    		source: "(11:9) {#each database as option}",
+    		source: "(20:9) {#each database as option}",
     		ctx
     	});
 
@@ -709,16 +709,16 @@ var app = (function () {
     			t1 = space();
     			textarea = element("textarea");
     			attr_dev(select, "id", "left-select");
-    			if (/*selectedDatabase*/ ctx[0] === void 0) add_render_callback(() => /*select_change_handler*/ ctx[3].call(select));
-    			add_location(select, file$3, 9, 6, 169);
-    			add_location(br, file$3, 13, 8, 358);
+    			if (/*selectedDatabase*/ ctx[0] === void 0) add_render_callback(() => /*select_change_handler*/ ctx[4].call(select));
+    			add_location(select, file$3, 12, 6, 245);
+    			add_location(br, file$3, 22, 8, 596);
     			attr_dev(textarea, "class", "top-textarea svelte-1r6uqut");
-    			add_location(textarea, file$3, 14, 6, 372);
+    			add_location(textarea, file$3, 23, 6, 610);
     			attr_dev(div0, "class", "left-inner svelte-1r6uqut");
-    			add_location(div0, file$3, 8, 4, 137);
+    			add_location(div0, file$3, 10, 4, 166);
     			attr_dev(div1, "class", "left svelte-1r6uqut");
-    			add_location(div1, file$3, 7, 2, 113);
-    			add_location(main, file$3, 6, 0, 103);
+    			add_location(div1, file$3, 9, 2, 142);
+    			add_location(main, file$3, 8, 0, 132);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -742,8 +742,10 @@ var app = (function () {
 
     			if (!mounted) {
     				dispose = [
-    					listen_dev(select, "change", /*select_change_handler*/ ctx[3]),
-    					listen_dev(textarea, "input", /*textarea_input_handler*/ ctx[4])
+    					listen_dev(select, "change", /*select_change_handler*/ ctx[4]),
+    					listen_dev(select, "change", /*change_handler*/ ctx[5], false, false, false),
+    					listen_dev(textarea, "input", /*textarea_input_handler*/ ctx[6]),
+    					listen_dev(textarea, "keyup", /*keyup_handler*/ ctx[7], false, false, false)
     				];
 
     				mounted = true;
@@ -809,7 +811,8 @@ var app = (function () {
     	let { selectedDatabase } = $$props;
     	let { leftText } = $$props;
     	let { database } = $$props;
-    	const writable_props = ["selectedDatabase", "leftText", "database"];
+    	let { generateORM } = $$props;
+    	const writable_props = ["selectedDatabase", "leftText", "database", "generateORM"];
 
     	Object.keys($$props).forEach(key => {
     		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console.warn(`<LeftInput> was created with unknown prop '${key}'`);
@@ -821,23 +824,39 @@ var app = (function () {
     		$$invalidate(2, database);
     	}
 
+    	const change_handler = () => {
+    		window.localStorage.setItem("selectedDatabase", selectedDatabase);
+    		generateORM();
+    	};
+
     	function textarea_input_handler() {
     		leftText = this.value;
     		$$invalidate(1, leftText);
     	}
 
+    	const keyup_handler = () => {
+    		generateORM();
+    	};
+
     	$$self.$$set = $$props => {
     		if ("selectedDatabase" in $$props) $$invalidate(0, selectedDatabase = $$props.selectedDatabase);
     		if ("leftText" in $$props) $$invalidate(1, leftText = $$props.leftText);
     		if ("database" in $$props) $$invalidate(2, database = $$props.database);
+    		if ("generateORM" in $$props) $$invalidate(3, generateORM = $$props.generateORM);
     	};
 
-    	$$self.$capture_state = () => ({ selectedDatabase, leftText, database });
+    	$$self.$capture_state = () => ({
+    		selectedDatabase,
+    		leftText,
+    		database,
+    		generateORM
+    	});
 
     	$$self.$inject_state = $$props => {
     		if ("selectedDatabase" in $$props) $$invalidate(0, selectedDatabase = $$props.selectedDatabase);
     		if ("leftText" in $$props) $$invalidate(1, leftText = $$props.leftText);
     		if ("database" in $$props) $$invalidate(2, database = $$props.database);
+    		if ("generateORM" in $$props) $$invalidate(3, generateORM = $$props.generateORM);
     	};
 
     	if ($$props && "$$inject" in $$props) {
@@ -848,8 +867,11 @@ var app = (function () {
     		selectedDatabase,
     		leftText,
     		database,
+    		generateORM,
     		select_change_handler,
-    		textarea_input_handler
+    		change_handler,
+    		textarea_input_handler,
+    		keyup_handler
     	];
     }
 
@@ -860,7 +882,8 @@ var app = (function () {
     		init(this, options, instance$3, create_fragment$3, safe_not_equal, {
     			selectedDatabase: 0,
     			leftText: 1,
-    			database: 2
+    			database: 2,
+    			generateORM: 3
     		});
 
     		dispatch_dev("SvelteRegisterComponent", {
@@ -883,6 +906,10 @@ var app = (function () {
 
     		if (/*database*/ ctx[2] === undefined && !("database" in props)) {
     			console.warn("<LeftInput> was created without expected prop 'database'");
+    		}
+
+    		if (/*generateORM*/ ctx[3] === undefined && !("generateORM" in props)) {
+    			console.warn("<LeftInput> was created without expected prop 'generateORM'");
     		}
     	}
 
@@ -909,6 +936,14 @@ var app = (function () {
     	set database(value) {
     		throw new Error("<LeftInput>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     	}
+
+    	get generateORM() {
+    		throw new Error("<LeftInput>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set generateORM(value) {
+    		throw new Error("<LeftInput>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
     }
 
     /* src\components\RightInput.svelte generated by Svelte v3.38.3 */
@@ -917,20 +952,20 @@ var app = (function () {
 
     function get_each_context(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[7] = list[i];
+    	child_ctx[10] = list[i];
     	return child_ctx;
     }
 
     function get_each_context_1(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[7] = list[i];
+    	child_ctx[10] = list[i];
     	return child_ctx;
     }
 
-    // (19:9) {#each orm as option}
+    // (27:9) {#each orm as option}
     function create_each_block_1(ctx) {
     	let option;
-    	let t_value = /*option*/ ctx[7].view + "";
+    	let t_value = /*option*/ ctx[10].view + "";
     	let t;
     	let option_value_value;
 
@@ -938,18 +973,18 @@ var app = (function () {
     		c: function create() {
     			option = element("option");
     			t = text(t_value);
-    			option.__value = option_value_value = /*option*/ ctx[7].value;
+    			option.__value = option_value_value = /*option*/ ctx[10].value;
     			option.value = option.__value;
-    			add_location(option, file$2, 19, 10, 457);
+    			add_location(option, file$2, 27, 10, 676);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, option, anchor);
     			append_dev(option, t);
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty & /*orm*/ 8 && t_value !== (t_value = /*option*/ ctx[7].view + "")) set_data_dev(t, t_value);
+    			if (dirty & /*orm*/ 8 && t_value !== (t_value = /*option*/ ctx[10].view + "")) set_data_dev(t, t_value);
 
-    			if (dirty & /*orm*/ 8 && option_value_value !== (option_value_value = /*option*/ ctx[7].value)) {
+    			if (dirty & /*orm*/ 8 && option_value_value !== (option_value_value = /*option*/ ctx[10].value)) {
     				prop_dev(option, "__value", option_value_value);
     				option.value = option.__value;
     			}
@@ -963,17 +998,17 @@ var app = (function () {
     		block,
     		id: create_each_block_1.name,
     		type: "each",
-    		source: "(19:9) {#each orm as option}",
+    		source: "(27:9) {#each orm as option}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (24:9) {#each fieldname as option}
+    // (39:9) {#each fieldname as option}
     function create_each_block(ctx) {
     	let option;
-    	let t_value = /*option*/ ctx[7].view + "";
+    	let t_value = /*option*/ ctx[10].view + "";
     	let t;
     	let option_value_value;
     	let option_selected_value;
@@ -982,24 +1017,24 @@ var app = (function () {
     		c: function create() {
     			option = element("option");
     			t = text(t_value);
-    			option.__value = option_value_value = /*option*/ ctx[7].value;
+    			option.__value = option_value_value = /*option*/ ctx[10].value;
     			option.value = option.__value;
-    			option.selected = option_selected_value = /*option*/ ctx[7].selected;
-    			add_location(option, file$2, 24, 10, 666);
+    			option.selected = option_selected_value = /*option*/ ctx[10].selected;
+    			add_location(option, file$2, 39, 10, 1089);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, option, anchor);
     			append_dev(option, t);
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty & /*fieldname*/ 16 && t_value !== (t_value = /*option*/ ctx[7].view + "")) set_data_dev(t, t_value);
+    			if (dirty & /*fieldname*/ 16 && t_value !== (t_value = /*option*/ ctx[10].view + "")) set_data_dev(t, t_value);
 
-    			if (dirty & /*fieldname*/ 16 && option_value_value !== (option_value_value = /*option*/ ctx[7].value)) {
+    			if (dirty & /*fieldname*/ 16 && option_value_value !== (option_value_value = /*option*/ ctx[10].value)) {
     				prop_dev(option, "__value", option_value_value);
     				option.value = option.__value;
     			}
 
-    			if (dirty & /*fieldname*/ 16 && option_selected_value !== (option_selected_value = /*option*/ ctx[7].selected)) {
+    			if (dirty & /*fieldname*/ 16 && option_selected_value !== (option_selected_value = /*option*/ ctx[10].selected)) {
     				prop_dev(option, "selected", option_selected_value);
     			}
     		},
@@ -1012,7 +1047,7 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(24:9) {#each fieldname as option}",
+    		source: "(39:9) {#each fieldname as option}",
     		ctx
     	});
 
@@ -1078,25 +1113,25 @@ var app = (function () {
     			t4 = space();
     			textarea = element("textarea");
     			attr_dev(select0, "id", "right-select");
-    			if (/*selectedOrm*/ ctx[0] === void 0) add_render_callback(() => /*select0_change_handler*/ ctx[5].call(select0));
-    			add_location(select0, file$2, 17, 6, 363);
+    			if (/*selectedOrm*/ ctx[0] === void 0) add_render_callback(() => /*select0_change_handler*/ ctx[6].call(select0));
+    			add_location(select0, file$2, 19, 6, 437);
     			attr_dev(select1, "id", "right-select-fieldname");
-    			if (/*selectedFieldname*/ ctx[1] === void 0) add_render_callback(() => /*select1_change_handler*/ ctx[6].call(select1));
-    			add_location(select1, file$2, 22, 6, 550);
+    			if (/*selectedFieldname*/ ctx[1] === void 0) add_render_callback(() => /*select1_change_handler*/ ctx[8].call(select1));
+    			add_location(select1, file$2, 31, 6, 816);
     			set_style(i, "font-size", "24px");
     			attr_dev(i, "class", "fa");
-    			add_location(i, file$2, 30, 9, 861);
-    			add_location(button, file$2, 29, 6, 812);
-    			add_location(br, file$2, 32, 6, 935);
+    			add_location(i, file$2, 45, 9, 1284);
+    			add_location(button, file$2, 44, 6, 1235);
+    			add_location(br, file$2, 47, 6, 1358);
     			textarea.readOnly = true;
     			attr_dev(textarea, "class", "top-textarea svelte-kkkve3");
     			textarea.value = /*rightText*/ ctx[2];
-    			add_location(textarea, file$2, 33, 6, 949);
+    			add_location(textarea, file$2, 48, 6, 1372);
     			attr_dev(div0, "class", "right-inner svelte-kkkve3");
-    			add_location(div0, file$2, 16, 4, 330);
+    			add_location(div0, file$2, 17, 4, 357);
     			attr_dev(div1, "class", "right svelte-kkkve3");
-    			add_location(div1, file$2, 15, 2, 305);
-    			add_location(main, file$2, 14, 0, 295);
+    			add_location(div1, file$2, 16, 2, 332);
+    			add_location(main, file$2, 15, 0, 322);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -1130,8 +1165,10 @@ var app = (function () {
 
     			if (!mounted) {
     				dispose = [
-    					listen_dev(select0, "change", /*select0_change_handler*/ ctx[5]),
-    					listen_dev(select1, "change", /*select1_change_handler*/ ctx[6]),
+    					listen_dev(select0, "change", /*select0_change_handler*/ ctx[6]),
+    					listen_dev(select0, "change", /*change_handler*/ ctx[7], false, false, false),
+    					listen_dev(select1, "change", /*select1_change_handler*/ ctx[8]),
+    					listen_dev(select1, "change", /*change_handler_1*/ ctx[9], false, false, false),
     					listen_dev(button, "click", displaySettingModel, false, false, false)
     				];
 
@@ -1234,7 +1271,16 @@ var app = (function () {
     	let { rightText } = $$props;
     	let { orm } = $$props;
     	let { fieldname } = $$props;
-    	const writable_props = ["selectedOrm", "selectedFieldname", "rightText", "orm", "fieldname"];
+    	let { generateORM } = $$props;
+
+    	const writable_props = [
+    		"selectedOrm",
+    		"selectedFieldname",
+    		"rightText",
+    		"orm",
+    		"fieldname",
+    		"generateORM"
+    	];
 
     	Object.keys($$props).forEach(key => {
     		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console.warn(`<RightInput> was created with unknown prop '${key}'`);
@@ -1246,11 +1292,21 @@ var app = (function () {
     		$$invalidate(3, orm);
     	}
 
+    	const change_handler = () => {
+    		localStorage.setItem("selectedOrm", selectedOrm);
+    		generateORM();
+    	};
+
     	function select1_change_handler() {
     		selectedFieldname = select_value(this);
     		$$invalidate(1, selectedFieldname);
     		$$invalidate(4, fieldname);
     	}
+
+    	const change_handler_1 = () => {
+    		localStorage.setItem("selectedFieldname", selectedFieldname);
+    		generateORM();
+    	};
 
     	$$self.$$set = $$props => {
     		if ("selectedOrm" in $$props) $$invalidate(0, selectedOrm = $$props.selectedOrm);
@@ -1258,6 +1314,7 @@ var app = (function () {
     		if ("rightText" in $$props) $$invalidate(2, rightText = $$props.rightText);
     		if ("orm" in $$props) $$invalidate(3, orm = $$props.orm);
     		if ("fieldname" in $$props) $$invalidate(4, fieldname = $$props.fieldname);
+    		if ("generateORM" in $$props) $$invalidate(5, generateORM = $$props.generateORM);
     	};
 
     	$$self.$capture_state = () => ({
@@ -1266,6 +1323,7 @@ var app = (function () {
     		rightText,
     		orm,
     		fieldname,
+    		generateORM,
     		displaySettingModel
     	});
 
@@ -1275,6 +1333,7 @@ var app = (function () {
     		if ("rightText" in $$props) $$invalidate(2, rightText = $$props.rightText);
     		if ("orm" in $$props) $$invalidate(3, orm = $$props.orm);
     		if ("fieldname" in $$props) $$invalidate(4, fieldname = $$props.fieldname);
+    		if ("generateORM" in $$props) $$invalidate(5, generateORM = $$props.generateORM);
     	};
 
     	if ($$props && "$$inject" in $$props) {
@@ -1287,8 +1346,11 @@ var app = (function () {
     		rightText,
     		orm,
     		fieldname,
+    		generateORM,
     		select0_change_handler,
-    		select1_change_handler
+    		change_handler,
+    		select1_change_handler,
+    		change_handler_1
     	];
     }
 
@@ -1301,7 +1363,8 @@ var app = (function () {
     			selectedFieldname: 1,
     			rightText: 2,
     			orm: 3,
-    			fieldname: 4
+    			fieldname: 4,
+    			generateORM: 5
     		});
 
     		dispatch_dev("SvelteRegisterComponent", {
@@ -1332,6 +1395,10 @@ var app = (function () {
 
     		if (/*fieldname*/ ctx[4] === undefined && !("fieldname" in props)) {
     			console.warn("<RightInput> was created without expected prop 'fieldname'");
+    		}
+
+    		if (/*generateORM*/ ctx[5] === undefined && !("generateORM" in props)) {
+    			console.warn("<RightInput> was created without expected prop 'generateORM'");
     		}
     	}
 
@@ -1372,6 +1439,14 @@ var app = (function () {
     	}
 
     	set fieldname(value) {
+    		throw new Error("<RightInput>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get generateORM() {
+    		throw new Error("<RightInput>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set generateORM(value) {
     		throw new Error("<RightInput>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     	}
     }
@@ -1975,22 +2050,18 @@ var app = (function () {
     	let updating_fieldname;
     	let t2;
     	let div1;
-    	let button;
+    	let t3;
+    	let br;
     	let t4;
-    	let br0;
-    	let br1;
-    	let t5;
-    	let br2;
-    	let t6;
     	let textarea;
-    	let t7;
+    	let t5;
     	let settingmodal;
     	let updating_primaryKey;
     	let updating_createdAt;
     	let updating_updatedAt;
     	let updating_deletedAt;
     	let updating_schemaName;
-    	let t8;
+    	let t6;
     	let footer;
     	let current;
     	let mounted;
@@ -2008,7 +2079,7 @@ var app = (function () {
     		/*leftinput_leftText_binding*/ ctx[18](value);
     	}
 
-    	let leftinput_props = {};
+    	let leftinput_props = { generateORM: /*generateORM*/ ctx[14] };
 
     	if (/*database*/ ctx[0] !== void 0) {
     		leftinput_props.database = /*database*/ ctx[0];
@@ -2047,7 +2118,7 @@ var app = (function () {
     		/*rightinput_fieldname_binding*/ ctx[23](value);
     	}
 
-    	let rightinput_props = {};
+    	let rightinput_props = { generateORM: /*generateORM*/ ctx[14] };
 
     	if (/*orm*/ ctx[1] !== void 0) {
     		rightinput_props.orm = /*orm*/ ctx[1];
@@ -2141,34 +2212,26 @@ var app = (function () {
     			create_component(rightinput.$$.fragment);
     			t2 = space();
     			div1 = element("div");
-    			button = element("button");
-    			button.textContent = "변환";
+    			t3 = text("Error Log ");
+    			br = element("br");
     			t4 = space();
-    			br0 = element("br");
-    			br1 = element("br");
-    			t5 = text("\r\n\r\n    Error Log ");
-    			br2 = element("br");
-    			t6 = space();
     			textarea = element("textarea");
-    			t7 = space();
+    			t5 = space();
     			create_component(settingmodal.$$.fragment);
-    			t8 = space();
+    			t6 = space();
     			create_component(footer.$$.fragment);
-    			add_location(hr, file, 41, 2, 1179);
+    			add_location(hr, file, 55, 2, 1784);
     			attr_dev(div0, "class", "top svelte-rhu95f");
-    			add_location(div0, file, 42, 2, 1189);
-    			add_location(button, file, 53, 4, 1454);
-    			add_location(br0, file, 53, 51, 1501);
-    			add_location(br1, file, 53, 57, 1507);
-    			add_location(br2, file, 55, 14, 1531);
+    			add_location(div0, file, 56, 2, 1794);
+    			add_location(br, file, 73, 14, 2137);
     			textarea.readOnly = true;
     			attr_dev(textarea, "id", "error-textarea");
     			textarea.value = /*errorLog*/ ctx[8];
     			attr_dev(textarea, "class", "svelte-rhu95f");
-    			add_location(textarea, file, 56, 4, 1543);
+    			add_location(textarea, file, 74, 4, 2149);
     			attr_dev(div1, "class", "bottom svelte-rhu95f");
-    			add_location(div1, file, 52, 2, 1428);
-    			add_location(main, file, 40, 0, 1152);
+    			add_location(div1, file, 72, 2, 2101);
+    			add_location(main, file, 54, 0, 1757);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -2183,26 +2246,18 @@ var app = (function () {
     			mount_component(rightinput, div0, null);
     			append_dev(main, t2);
     			append_dev(main, div1);
-    			append_dev(div1, button);
+    			append_dev(div1, t3);
+    			append_dev(div1, br);
     			append_dev(div1, t4);
-    			append_dev(div1, br0);
-    			append_dev(div1, br1);
-    			append_dev(div1, t5);
-    			append_dev(div1, br2);
-    			append_dev(div1, t6);
     			append_dev(div1, textarea);
-    			append_dev(main, t7);
+    			append_dev(main, t5);
     			mount_component(settingmodal, main, null);
-    			append_dev(main, t8);
+    			append_dev(main, t6);
     			mount_component(footer, main, null);
     			current = true;
 
     			if (!mounted) {
-    				dispose = [
-    					listen_dev(button, "click", /*onButtonClicked*/ ctx[14], false, false, false),
-    					listen_dev(main, "load", onLoad, false, false, false)
-    				];
-
+    				dispose = listen_dev(main, "load", onLoad, false, false, false);
     				mounted = true;
     			}
     		},
@@ -2322,7 +2377,7 @@ var app = (function () {
     			destroy_component(settingmodal);
     			destroy_component(footer);
     			mounted = false;
-    			run_all(dispose);
+    			dispose();
     		}
     	};
 
@@ -2352,8 +2407,26 @@ var app = (function () {
     	let selectedDatabase = null;
     	let selectedOrm = null;
     	let selectedFieldname = fieldname[0].value;
+
+    	if (window.localStorage.getItem("selectedDatabase") !== null) {
+    		selectedDatabase = window.localStorage.getItem("selectedDatabase");
+    	}
+
+    	if (window.localStorage.getItem("selectedOrm") !== null) {
+    		selectedOrm = window.localStorage.getItem("selectedOrm");
+    	}
+
+    	if (window.localStorage.getItem("selectedFieldname") !== null) {
+    		selectedFieldname = window.localStorage.getItem("selectedFieldname");
+    	}
+
     	let leftText = "";
     	let rightText = "";
+
+    	if (window.localStorage.getItem("leftText") !== null) {
+    		leftText = window.localStorage.getItem("leftText");
+    	}
+
     	let errorLog = "";
     	let primaryKey = "id";
     	let createdAt = "created_at";
@@ -2361,7 +2434,9 @@ var app = (function () {
     	let deletedAt = "deleted_at";
     	let schemaName = "public";
 
-    	function onButtonClicked() {
+    	function generateORM() {
+    		window.localStorage.setItem("leftText", leftText);
+
     		if (selectedDatabase === null) {
     			alert("데이터베이스를 선택해주세요.");
     			return;
@@ -2374,12 +2449,13 @@ var app = (function () {
 
     		try {
     			$$invalidate(7, rightText = convert(leftText, selectedDatabase, selectedOrm, selectedFieldname, primaryKey, createdAt, updatedAt, deletedAt, schemaName));
+    			$$invalidate(8, errorLog = "No Problem");
     		} catch(error) {
-    			alert("오류 발생");
     			$$invalidate(8, errorLog = JSON.stringify(error));
     		}
     	}
 
+    	generateORM();
     	const writable_props = ["database", "orm", "fieldname", "convert"];
 
     	Object.keys($$props).forEach(key => {
@@ -2478,7 +2554,7 @@ var app = (function () {
     		updatedAt,
     		deletedAt,
     		schemaName,
-    		onButtonClicked,
+    		generateORM,
     		onLoad
     	});
 
@@ -2519,7 +2595,7 @@ var app = (function () {
     		updatedAt,
     		deletedAt,
     		schemaName,
-    		onButtonClicked,
+    		generateORM,
     		convert,
     		leftinput_database_binding,
     		leftinput_selectedDatabase_binding,

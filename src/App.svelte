@@ -14,8 +14,24 @@
   let selectedOrm = null;
   let selectedFieldname = fieldname[0].value;
 
+  if (window.localStorage.getItem("selectedDatabase") !== null) {
+    selectedDatabase = window.localStorage.getItem("selectedDatabase");
+  }
+
+  if (window.localStorage.getItem("selectedOrm") !== null) {
+    selectedOrm = window.localStorage.getItem("selectedOrm");
+  }
+
+  if (window.localStorage.getItem("selectedFieldname") !== null) {
+    selectedFieldname = window.localStorage.getItem("selectedFieldname");
+  }
+
   let leftText: string = "";
   let rightText: string = "";
+
+  if (window.localStorage.getItem("leftText") !== null) {
+    leftText = window.localStorage.getItem("leftText");
+  }
 
   let errorLog: string = "";
 
@@ -25,7 +41,9 @@
   let deletedAt: string = "deleted_at";
   let schemaName: string = "public";
 
-  function onButtonClicked() {
+  function generateORM() {
+    window.localStorage.setItem("leftText", leftText);
+
     if (selectedDatabase === null) {
       alert("데이터베이스를 선택해주세요.");
       return;
@@ -48,11 +66,13 @@
         deletedAt,
         schemaName
       );
+      errorLog = "No Problem";
     } catch (error) {
-      alert("오류 발생");
       errorLog = JSON.stringify(error);
     }
   }
+
+  generateORM();
 
   function onLoad() {}
 </script>
@@ -60,18 +80,22 @@
 <main on:load={onLoad}>
   <hr />
   <div class="top">
-    <LeftInput bind:database bind:selectedDatabase bind:leftText />
+    <LeftInput
+      bind:database
+      bind:selectedDatabase
+      bind:leftText
+      {generateORM}
+    />
     <RightInput
       bind:orm
       bind:selectedOrm
       bind:rightText
       bind:selectedFieldname
       bind:fieldname
+      {generateORM}
     />
   </div>
   <div class="bottom">
-    <button on:click={onButtonClicked}>변환</button> <br /><br />
-
     Error Log <br />
     <textarea readonly id="error-textarea">{errorLog}</textarea>
   </div>
