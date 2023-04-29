@@ -24,7 +24,7 @@
     "typescript": "^3.9.3"
   },
   "dependencies": {
-    "eojuk": "0.6.0",
+    "eojuk": "0.9.1",
     "sirv-cli": "^1.0.0"
   }
 }

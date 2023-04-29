@@ -9427,6 +9427,56 @@ var app = (function () {
                 return "string";
             }
         }
+        convertDbTypeToJavaType(typename) {
+            if (["text", "varchar"].includes(typename.toLocaleLowerCase())) {
+                return "String";
+            }
+            else if (["bool", "boolean"].includes(typename.toLocaleLowerCase())) {
+                return "Boolean";
+            }
+            else if (["int", "int2", "int4", "int8", "bigint"].includes(typename.toLocaleLowerCase())) {
+                switch (typename.toLocaleLowerCase()) {
+                    case "int":
+                    case "int2":
+                    case "int4":
+                        return "Integer";
+                    case "int8":
+                    case "bigint":
+                        return "Long";
+                }
+            }
+            else if (["timestamp", "timestamptz", "date"].includes(typename.toLocaleLowerCase())) {
+                return "LocalDateTime";
+            }
+            else {
+                return "String";
+            }
+        }
+        convertDbTypeToSQLAlchemyType(typename) {
+            if (["text", "varchar"].includes(typename.toLocaleLowerCase())) {
+                return "String";
+            }
+            else if (["bool", "boolean"].includes(typename.toLocaleLowerCase())) {
+                return "Boolean";
+            }
+            else if (["int", "int2", "int4", "int8", "bigint"].includes(typename.toLocaleLowerCase())) {
+                switch (typename.toLocaleLowerCase()) {
+                    case "int":
+                    case "int2":
+                    case "int4":
+                        return "Integer";
+                    case "int8":
+                    case "bigint":
+                        return "BigInteger";
+                }
+            }
+            else if (["timestamp", "timestamptz", "date"].includes(typename.toLocaleLowerCase())) {
+                return "DateTime";
+            }
+            else {
+                return "String";
+            }
+        }
         // 파싱
         parse(sql) {
             var _a, _b;
@@ -9441,8 +9491,7 @@ var app = (function () {
                         this.parseComment(node, tables);
                         break;
                     case "alter table":
-                        if (((_b = (_a = node === null || node === void 0 ? void 0 : node.change) === null || _a === void 0 ? void 0 : _a.constraint) === null || _b === void 0 ? void 0 : _b.type) ===
-                            "primary key") {
+                        if (((_b = (_a = node === null || node === void 0 ? void 0 : node.change) === null || _a === void 0 ? void 0 : _a.constraint) === null || _b === void 0 ? void 0 : _b.type) === "primary key") {
                             this.parsePrimaryKey(node, tables);
                         }
                         break;
@@ -9484,6 +9533,8 @@ var app = (function () {
                             name: columnName,
                             dbType: normalizedDbType,
                             tsType: this.convertDbTypeToTsType(normalizedDbType),
+                            javaType: this.convertDbTypeToJavaType(normalizedDbType),
+                            pythonType: this.convertDbTypeToSQLAlchemyType(normalizedDbType),
                             isNotNull,
                             isPrimaryKey,
                             default: defaultValue,
@@ -10063,6 +10114,262 @@ ${table.columns.map((column) => this.generateColumn(column)).join("\n\n")}
         }
     }
     exports.SequelizeTypescriptEmitter = SequelizeTypescriptEmitter;
+
+    });
+
+    var _escape = createCommonjsModule(function (module, exports) {
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.escapeDoubleQuote = void 0;
+    function escapeDoubleQuote(str) {
+        return str.replace(/"/g, '\\"');
+    }
+    exports.escapeDoubleQuote = escapeDoubleQuote;
+
+    });
+
+    var jpaJava = createCommonjsModule(function (module, exports) {
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.JPAEmitter = void 0;
+
+
+
+    const importTemplate = `
+// If under EE 9, change jakarta to javax
+import jakarta.annotation.*;
+import jakarta.persistence.*;
+import jakarta.persistence.Table;
+
+import org.hibernate.annotations.*;
+import java.time.LocalDateTime;
+`;
+    class JPAEmitter {
+        // 컬럼 필드 코드 생성
+        generateColumn(column) {
+            const columnFieldName = name.convertNameCaseByOption(this.option.outputFieldNameCase, column.name);
+            const hasCreatedAt = column.name == this.option.autoAddCreatedAt;
+            const hasUpdatedAt = column.name == this.option.autoAddUpdatedAt;
+            // const hasDeletedAt = column.name == this.option.autoAddDeletedAt
+            // PrimaryKey 강제 추가 옵션
+            if (column.name == this.option.autoAddPrimaryKey) {
+                column.isPrimaryKey = true;
+            }
+            const createdAt = hasCreatedAt ? `\n${tab.TAB}@CreationTimestamp` : "";
+            const updatedAt = hasUpdatedAt ? `\n${tab.TAB}@UpdateTimestamp` : "";
+            const deletedAt = ""; // hibernate에는 해당 기능이 없음
+            const primaryKey = column.isPrimaryKey ? `\n${tab.TAB}@Id` : "";
+            const autoIncrement = column.isAutoIncrement
+                ? `\n${tab.TAB}@GeneratedValue(strategy = GenerationType.IDENTITY)`
+                : "";
+            const defaultValue = column.default
+                ? `\n${tab.TAB}@ColumnDefault("${_escape.escapeDoubleQuote(column.default)}")`
+                : "";
+            const comment = column.comment
+                ? `\n${tab.TAB}@Comment("${_escape.escapeDoubleQuote(column.comment)}")`
+                : "";
+            //const dataType = this.dbTypeToDataType(column.dbType);
+            const columnAnnotation = `\n${tab.TAB}@Column(name = "${_escape.escapeDoubleQuote(column.name)}")`;
+            const notNullAnnotaion = column.isNotNull
+                ? `\n${tab.TAB}@Nonnull`
+                : `\n${tab.TAB}@Nullable`;
+            return `${primaryKey}${autoIncrement}${columnAnnotation}${notNullAnnotaion}${comment}${defaultValue}${createdAt}${updatedAt}${deletedAt}
+${tab.TAB}${column.javaType} ${columnFieldName};`;
+        }
+        // 테이블 클래스 코드 생성
+        generateTableCode(table) {
+            const hasDatabaseName = this.option.databaseName != null;
+            const tableClassName = name.convertNameCaseByOption(this.option.outputClassNameCase, table.tableName);
+            const schema = hasDatabaseName
+                ? `, schema = "\\"${this.option.databaseName}\\""`
+                : "";
+            return `@Entity()
+@Table(name = "\\"${table.tableName}\\""${schema})
+public class ${tableClassName} {
+${table.columns.map((column) => this.generateColumn(column)).join("\n")}
+}`;
+        }
+        emit(tables, option = {
+            sourceSplit: true,
+            outputClassNameCase: "PASCAL",
+            outputFieldNameCase: "CAMEL",
+        }) {
+            this.option = option;
+            if (option === null || option === void 0 ? void 0 : option.sourceSplit) {
+                return tables.map((table) => ({
+                    sourceName: table.tableName,
+                    source: importTemplate + "\n" + this.generateTableCode(table),
+                }));
+            }
+            else {
+                return [
+                    {
+                        sourceName: "all",
+                        source: importTemplate +
+                            "\n" +
+                            tables.map((table) => this.generateTableCode(table)).join("\n\n"),
+                    },
+                ];
+            }
+        }
+    }
+    exports.JPAEmitter = JPAEmitter;
+
+    });
+
+    var jpaKotlin = createCommonjsModule(function (module, exports) {
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.JPAKotlinEmitter = void 0;
+
+
+
+    const importTemplate = `
+// If under EE 9, change jakarta to javax
+import jakarta.annotation.*
+import jakarta.persistence.*
+import jakarta.persistence.Table
+
+import org.hibernate.annotations.*
+import java.time.LocalDateTime
+`;
+    class JPAKotlinEmitter {
+        // 컬럼 필드 코드 생성
+        generateColumn(column) {
+            const columnFieldName = name.convertNameCaseByOption(this.option.outputFieldNameCase, column.name);
+            const hasCreatedAt = column.name == this.option.autoAddCreatedAt;
+            const hasUpdatedAt = column.name == this.option.autoAddUpdatedAt;
+            // const hasDeletedAt = column.name == this.option.autoAddDeletedAt
+            // PrimaryKey 강제 추가 옵션
+            if (column.name == this.option.autoAddPrimaryKey) {
+                column.isPrimaryKey = true;
+            }
+            const createdAt = hasCreatedAt ? `\n${tab.TAB}@CreationTimestamp` : "";
+            const updatedAt = hasUpdatedAt ? `\n${tab.TAB}@UpdateTimestamp` : "";
+            const deletedAt = ""; // hibernate에는 해당 기능이 없음
+            const primaryKey = column.isPrimaryKey ? `\n${tab.TAB}@Id` : "";
+            const autoIncrement = column.isAutoIncrement
+                ? `\n${tab.TAB}@GeneratedValue(strategy = GenerationType.IDENTITY)`
+                : "";
+            const defaultValue = column.default
+                ? `\n${tab.TAB}@ColumnDefault("${_escape.escapeDoubleQuote(column.default)}")`
+                : "";
+            const comment = column.comment
+                ? `\n${tab.TAB}@Comment("${_escape.escapeDoubleQuote(column.comment)}")`
+                : "";
+            //const dataType = this.dbTypeToDataType(column.dbType);
+            const columnAnnotation = `\n${tab.TAB}@Column(name = "${_escape.escapeDoubleQuote(column.name)}")`;
+            const notNullAnnotaion = column.isNotNull
+                ? `\n${tab.TAB}@Nonnull`
+                : `\n${tab.TAB}@Nullable`;
+            return `${primaryKey}${autoIncrement}${columnAnnotation}${notNullAnnotaion}${comment}${defaultValue}${createdAt}${updatedAt}${deletedAt}
+${tab.TAB}var ${columnFieldName}: ${column.javaType}? = null`;
+        }
+        // 테이블 클래스 코드 생성
+        generateTableCode(table) {
+            const hasDatabaseName = this.option.databaseName != null;
+            const tableClassName = name.convertNameCaseByOption(this.option.outputClassNameCase, table.tableName);
+            const schema = hasDatabaseName
+                ? `, schema = "\\"${this.option.databaseName}\\""`
+                : "";
+            return `@Entity()
+@Table(name = "\\"${table.tableName}\\""${schema})
+class ${tableClassName} {
+${table.columns.map((column) => this.generateColumn(column)).join("\n")}
+}`;
+        }
+        emit(tables, option = {
+            sourceSplit: true,
+            outputClassNameCase: "PASCAL",
+            outputFieldNameCase: "CAMEL",
+        }) {
+            this.option = option;
+            if (option === null || option === void 0 ? void 0 : option.sourceSplit) {
+                return tables.map((table) => ({
+                    sourceName: table.tableName,
+                    source: importTemplate + "\n" + this.generateTableCode(table),
+                }));
+            }
+            else {
+                return [
+                    {
+                        sourceName: "all",
+                        source: importTemplate +
+                            "\n" +
+                            tables.map((table) => this.generateTableCode(table)).join("\n\n"),
+                    },
+                ];
+            }
+        }
+    }
+    exports.JPAKotlinEmitter = JPAKotlinEmitter;
+
+    });
+
+    var sqlalchemy = createCommonjsModule(function (module, exports) {
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.SQLAlchemyEmitter = void 0;
+
+
+
+    const importTemplate = `
+from sqlalchemy import Column
+from sqlalchemy import String, Integer, Double, Float, BigInteger, DateTime, Boolean
+from sqlalchemy.orm import declarative_base
+
+Base = declarative_base()
+`;
+    class SQLAlchemyEmitter {
+        // 컬럼 필드 코드 생성
+        generateColumn(column) {
+            const columnFieldName = name.convertNameCaseByOption(this.option.outputFieldNameCase, column.name);
+            // PrimaryKey 강제 추가 옵션
+            if (column.name == this.option.autoAddPrimaryKey) {
+                column.isPrimaryKey = true;
+            }
+            const primaryKey = column.isPrimaryKey ? `, primary_key=True` : "";
+            const autoIncrement = column.isAutoIncrement ? `, autoincrement=True` : "";
+            const defaultValue = column.default
+                ? `, default="${_escape.escapeDoubleQuote(column.default)}"`
+                : "";
+            const comment = column.comment
+                ? `, comment="${_escape.escapeDoubleQuote(column.comment)}"`
+                : "";
+            const notNull = column.isNotNull ? `, nullable=False` : `, nullable=True`;
+            const type = column.pythonType;
+            return `${tab.TAB}${columnFieldName} = Column(${type}${primaryKey}${autoIncrement}${notNull}${defaultValue}${comment})`;
+        }
+        // 테이블 클래스 코드 생성
+        generateTableCode(table) {
+            this.option.databaseName != null;
+            const tableClassName = name.convertNameCaseByOption(this.option.outputClassNameCase, table.tableName);
+            return `class ${tableClassName}(Base):
+${tab.TAB}__tablename__ = "${table.tableName}"
+
+${table.columns.map((column) => this.generateColumn(column)).join("\n")}`;
+        }
+        emit(tables, option = {
+            sourceSplit: true,
+            outputClassNameCase: "PASCAL",
+            outputFieldNameCase: "CAMEL",
+        }) {
+            this.option = option;
+            if (option === null || option === void 0 ? void 0 : option.sourceSplit) {
+                return tables.map((table) => ({
+                    sourceName: table.tableName,
+                    source: importTemplate + "\n" + this.generateTableCode(table),
+                }));
+            }
+            else {
+                return [
+                    {
+                        sourceName: "all",
+                        source: importTemplate +
+                            "\n" +
+                            tables.map((table) => this.generateTableCode(table)).join("\n\n"),
+                    },
+                ];
+            }
+        }
+    }
+    exports.SQLAlchemyEmitter = SQLAlchemyEmitter;
 
     });
 
@@ -11566,6 +11873,8 @@ ${table.columns.map((column) => this.generateColumn(column)).join("\n\n")}
                             name: columnName,
                             dbType,
                             tsType: this.convertDbTypeToTsType(dbType),
+                            javaType: this.convertDbTypeToJavaType(dbType),
+                            pythonType: this.convertDbTypeToSQLAlchemyType(dbType),
                             isNotNull,
                             isPrimaryKey,
                             default: defaultValue,
@@ -11622,6 +11931,94 @@ ${table.columns.map((column) => this.generateColumn(column)).join("\n\n")}
             }
             else {
                 return "string";
+            }
+        }
+        // 데이터베이스의 컬럼타입을 자바 타입으로 변환
+        convertDbTypeToJavaType(typename) {
+            if (["tinyint", "smallint", "mediumint", "int", "bigint"].includes(typename.toLocaleLowerCase())) {
+                switch (typename.toLocaleLowerCase()) {
+                    case "tinyint":
+                        return "Byte";
+                    case "smallint":
+                        return "Short";
+                    case "mediumint":
+                    case "int":
+                        return "Integer";
+                    case "bigint":
+                        return "Long";
+                }
+            }
+            else if (["decimal", "float", "double"].includes(typename.toLocaleLowerCase())) {
+                switch (typename.toLocaleLowerCase()) {
+                    case "decimal":
+                        return "BigDecimal";
+                    case "float":
+                        return "Float";
+                    case "double":
+                        return "Double";
+                }
+            }
+            else if (["bool", "boolean"].includes(typename.toLocaleLowerCase())) {
+                return "Boolean";
+            }
+            else if ([
+                "char",
+                "varchar",
+                "tinytext",
+                "text",
+                "mediumtext",
+                "longtext",
+            ].includes(typename.toLocaleLowerCase())) {
+                return "String";
+            }
+            else if (["date", "time", "datetime", "timestamp", "year"].includes(typename.toLocaleLowerCase())) {
+                return "LocalDateTime";
+            }
+            else {
+                return "String";
+            }
+        }
+        // 데이터베이스의 컬럼타입을 파이썬 타입으로 변환
+        convertDbTypeToSQLAlchemyType(typename) {
+            if (["tinyint", "smallint", "mediumint", "int", "bigint"].includes(typename.toLocaleLowerCase())) {
+                switch (typename.toLocaleLowerCase()) {
+                    case "tinyint":
+                    case "smallint":
+                    case "mediumint":
+                    case "int":
+                        return "Integer";
+                    case "bigint":
+                        return "BigInteger";
+                }
+            }
+            else if (["decimal", "float", "double"].includes(typename.toLocaleLowerCase())) {
+                switch (typename.toLocaleLowerCase()) {
+                    case "decimal":
+                        return "BigDecimal";
+                    case "float":
+                        return "Float";
+                    case "double":
+                        return "Double";
+                }
+            }
+            else if (["bool", "boolean"].includes(typename.toLocaleLowerCase())) {
+                return "Boolean";
+            }
+            else if ([
+                "char",
+                "varchar",
+                "tinytext",
+                "text",
+                "mediumtext",
+                "longtext",
+            ].includes(typename.toLocaleLowerCase())) {
+                return "String";
+            }
+            else if (["date", "time", "datetime", "timestamp", "year"].includes(typename.toLocaleLowerCase())) {
+                return "DateTime";
+            }
+            else {
+                return "String";
             }
         }
     }
@@ -11716,11 +12113,17 @@ ${table.columns.map((column) => this.generateColumn(column)).join("\n\n")}
 
     var lib = createCommonjsModule(function (module, exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
-    exports.PostgreSQLParser = exports.MySQLParser = exports.SequelizeTypescriptEmitter = exports.TypeOrmEmitter = void 0;
+    exports.PostgreSQLParser = exports.MySQLParser = exports.SQLAlchemyEmitter = exports.JPAKotlinEmitter = exports.JPAEmitter = exports.SequelizeTypescriptEmitter = exports.TypeOrmEmitter = void 0;
 
     Object.defineProperty(exports, "PostgreSQLParser", { enumerable: true, get: function () { return postgres.PostgreSQLParser; } });
 
     Object.defineProperty(exports, "SequelizeTypescriptEmitter", { enumerable: true, get: function () { return sequelizeTypescript.SequelizeTypescriptEmitter; } });
+
+    Object.defineProperty(exports, "JPAEmitter", { enumerable: true, get: function () { return jpaJava.JPAEmitter; } });
+
+    Object.defineProperty(exports, "JPAKotlinEmitter", { enumerable: true, get: function () { return jpaKotlin.JPAKotlinEmitter; } });
+
+    Object.defineProperty(exports, "SQLAlchemyEmitter", { enumerable: true, get: function () { return sqlalchemy.SQLAlchemyEmitter; } });
 
     Object.defineProperty(exports, "MySQLParser", { enumerable: true, get: function () { return mysql.MySQLParser; } });
 
@@ -11759,6 +12162,15 @@ ${table.columns.map((column) => this.generateColumn(column)).join("\n\n")}
             case "ty":
                 emitter = new lib.TypeOrmEmitter();
                 break;
+            case "jpa":
+                emitter = new lib.JPAEmitter();
+                break;
+            case "jpa-kotlin":
+                emitter = new lib.JPAKotlinEmitter();
+                break;
+            case "sqlalchemy":
+                emitter = new lib.SQLAlchemyEmitter();
+                break;
             default:
                 console.error("!! 지원되지 않는 ORM입니다.");
                 return;
@@ -11789,6 +12201,9 @@ ${table.columns.map((column) => this.generateColumn(column)).join("\n\n")}
         { view: "ORM 선택", value: null },
         { view: "Sequelize-Typescript", value: "st" },
         { view: "TypeORM", value: "ty" },
+        { view: "JPA-hibernate", value: "jpa" },
+        { view: "JPA-hibernate(Kotlin)", value: "jpa-kotlin" },
+        { view: "SQLAlchemy", value: "sqlalchemy" },
     ];
 
     const fieldname = [

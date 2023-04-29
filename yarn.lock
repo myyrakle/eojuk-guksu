@@ -327,10 +327,10 @@
     "no-case" "^3.0.4"
     "tslib" "^2.0.3"
 
-"eojuk@0.6.0":
-  "integrity" "sha512-DwmnpXS8mG7ND5Kou+V7C3IEqGCQzWG0taFa7iiTZS8mH1QpBAt2GtqyDUmu8KNCLt56K0DoLK3sHZIUHDq4Yg=="
-  "resolved" "https://registry.npmjs.org/eojuk/-/eojuk-0.6.0.tgz"
-  "version" "0.6.0"
+"eojuk@0.9.1":
+  "integrity" "sha512-sBSGvhnACdNwTA4CeuG3GtdAWC2sJF+xZAEQoTiuOHN+pv6c8HTcJvT56fWiI64XQONwg26uL0qOqz33mF6MQg=="
+  "resolved" "https://registry.npmjs.org/eojuk/-/eojuk-0.9.1.tgz"
+  "version" "0.9.1"
   dependencies:
     "@angular-devkit/core" "^12.1.4"
     "camelcase" "^6.2.0"
@@ -696,7 +696,7 @@
   "resolved" "https://registry.npmjs.org/pluralize/-/pluralize-8.0.0.tgz"
   "version" "8.0.0"
 
-"postcss@^7 || ^8", "postcss@^8.4.19":
+"postcss@^7 || ^8":
   "integrity" "sha512-h+pbPsyhlYj6N2ozBmHhHrs9DzGmbaarbLvWipMRO7RLS+v4onj26MPFXA5OBYFxyqYhUJK456SwDcY9H2/zsA=="
   "resolved" "https://registry.npmjs.org/postcss/-/postcss-8.4.19.tgz"
   "version" "8.4.19"
@@ -847,7 +847,7 @@
     "mkdirp" "^0.5.1"
     "rimraf" "^2.5.2"
 
-"sass@^1.26.8", "sass@^1.56.2":
+"sass@^1.26.8":
   "integrity" "sha512-ciEJhnyCRwzlBCB+h5cCPM6ie/6f8HrhZMQOf5vlU60Y1bI1rx5Zb0vlDZvaycHsg/MqFfF1Eq2eokAa32iw8w=="
   "resolved" "https://registry.npmjs.org/sass/-/sass-1.56.2.tgz"
   "version" "1.56.2"
@@ -980,11 +980,6 @@
     "svelte-preprocess" "^4.0.0"
     "typescript" "*"
 
-"svelte-materialify@^0.3.11":
-  "integrity" "sha512-MLtZtdSOHditOdJOYqlB8s7NxIFRbYKXJzij5s9gz5WVbJFVEqdX2TqOleg4wYeMOujtOCm+/x3RP5YGyzRxIQ=="
-  "resolved" "https://registry.npmjs.org/svelte-materialify/-/svelte-materialify-0.3.11.tgz"
-  "version" "0.3.11"
-
 "svelte-preprocess@^4.0.0", "svelte-preprocess@^4.10.7":
   "integrity" "sha512-sNPBnqYD6FnmdBrUmBCaqS00RyCsCpj2BG58A1JBswNF7b0OKviwxqVrOL/CKyJrLSClrSeqQv5BXNg2RUbPOw=="
   "resolved" "https://registry.npmjs.org/svelte-preprocess/-/svelte-preprocess-4.10.7.tgz"
@@ -997,7 +992,7 @@
     "sorcery" "^0.10.0"
     "strip-indent" "^3.0.0"
 
-"svelte@^3.0.0", "svelte@^3.23.0", "svelte@^3.24.0", "svelte@>=3.29.4", "svelte@>=3.5.0":
+"svelte@^3.0.0", "svelte@^3.23.0", "svelte@^3.24.0", "svelte@>=3.5.0":
   "integrity" "sha512-N7bBZJH0iF24wsalFZF+fVYMUOigaAUQMIcEKHO3jstK/iL8VmP9xE+P0/a76+FkNcWt+TDv2Gx1taUoUscrvw=="
   "resolved" "https://registry.npmjs.org/svelte/-/svelte-3.38.3.tgz"
   "version" "3.38.3"
