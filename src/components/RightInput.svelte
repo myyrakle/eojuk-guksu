@@ -7,6 +7,9 @@
   export let fieldname;
   export let generateORM;
 
+  import { SvelteToast, toast } from "@zerodevx/svelte-toast";
+  const option = {};
+
   function displaySettingModel() {
     const modal = document.getElementById("modal");
     modal.style.display = "flex";
@@ -46,7 +49,16 @@
         ><i style="font-size:24px" class="fa">&#xf013;</i></button
       >
       <br />
-      <textarea readonly class="top-textarea">{rightText}</textarea>
+      <textarea
+        readonly
+        class="top-textarea"
+        on:click={() => {
+          navigator.clipboard.writeText(rightText);
+          toast.push("copied!");
+        }}>{rightText}</textarea
+      >
+
+      <SvelteToast {option} />
     </div>
   </div>
 </main>
