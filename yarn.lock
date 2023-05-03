@@ -124,6 +124,11 @@
   dependencies:
     "@types/node" "*"
 
+"@zerodevx/svelte-toast@^0.9.3":
+  "integrity" "sha512-VPKWR4A9y01fyXRscu9HiTj7tV2hFrpRKZvGwMmaPXfHIXR1D9+NNsz0HXcQ7qZ0C5UaHS3n9uNtPtIcAXT7RQ=="
+  "resolved" "https://registry.npmjs.org/@zerodevx/svelte-toast/-/svelte-toast-0.9.3.tgz"
+  "version" "0.9.3"
+
 "ajv-formats@2.1.0":
   "integrity" "sha512-USH2jBb+C/hIpwD2iRjp0pe0k+MvzG0mlSn/FIdCgQhUb9ALPRjt2KIQdfZDS9r0ZIeUAg7gOu9KL0PFqGqr5Q=="
   "resolved" "https://registry.npmjs.org/ajv-formats/-/ajv-formats-2.1.0.tgz"
@@ -992,10 +997,10 @@
     "sorcery" "^0.10.0"
     "strip-indent" "^3.0.0"
 
-"svelte@^3.0.0", "svelte@^3.23.0", "svelte@^3.24.0", "svelte@>=3.5.0":
-  "integrity" "sha512-N7bBZJH0iF24wsalFZF+fVYMUOigaAUQMIcEKHO3jstK/iL8VmP9xE+P0/a76+FkNcWt+TDv2Gx1taUoUscrvw=="
-  "resolved" "https://registry.npmjs.org/svelte/-/svelte-3.38.3.tgz"
-  "version" "3.38.3"
+"svelte@^3.0.0", "svelte@^3.23.0", "svelte@^3.24.0", "svelte@^3.57.0", "svelte@>=3.5.0":
+  "integrity" "sha512-brIBNNB76mXFmU/Kerm4wFnkskBbluBDCjx/8TcpYRb298Yh2dztS2kQ6bhtjMcvUhd5ynClfwpz5h2gnzdQ1A=="
+  "resolved" "https://registry.npmjs.org/svelte/-/svelte-3.58.0.tgz"
+  "version" "3.58.0"
 
 "terser@^5.0.0":
   "integrity" "sha512-HP5/9hp2UaZt5fYkuhNBR8YyRcT8juw8+uFbAme53iN9hblvKnLUTKkmwJG6ocWpIKf8UK4DoeWG4ty0J6S6/g=="
