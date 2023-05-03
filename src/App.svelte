@@ -44,6 +44,10 @@
   function generateORM() {
     window.localStorage.setItem("leftText", leftText);
 
+    if (leftText == "") {
+      return;
+    }
+
     if (selectedDatabase === null) {
       alert("데이터베이스를 선택해주세요.");
       return;

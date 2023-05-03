@@ -2220,18 +2220,18 @@ var app = (function () {
     			create_component(settingmodal.$$.fragment);
     			t6 = space();
     			create_component(footer.$$.fragment);
-    			add_location(hr, file, 55, 2, 1784);
+    			add_location(hr, file, 58, 2, 1835);
     			attr_dev(div0, "class", "top svelte-rhu95f");
-    			add_location(div0, file, 56, 2, 1794);
-    			add_location(br, file, 73, 14, 2137);
+    			add_location(div0, file, 59, 2, 1845);
+    			add_location(br, file, 76, 14, 2188);
     			textarea.readOnly = true;
     			attr_dev(textarea, "id", "error-textarea");
     			textarea.value = /*errorLog*/ ctx[8];
     			attr_dev(textarea, "class", "svelte-rhu95f");
-    			add_location(textarea, file, 74, 4, 2149);
+    			add_location(textarea, file, 77, 4, 2200);
     			attr_dev(div1, "class", "bottom svelte-rhu95f");
-    			add_location(div1, file, 72, 2, 2101);
-    			add_location(main, file, 54, 0, 1757);
+    			add_location(div1, file, 75, 2, 2152);
+    			add_location(main, file, 57, 0, 1808);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -2436,6 +2436,10 @@ var app = (function () {
 
     	function generateORM() {
     		window.localStorage.setItem("leftText", leftText);
+
+    		if (leftText == "") {
+    			return;
+    		}
 
     		if (selectedDatabase === null) {
     			alert("데이터베이스를 선택해주세요.");
