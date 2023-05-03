@@ -952,20 +952,20 @@ var app = (function () {
 
     function get_each_context(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[10] = list[i];
+    	child_ctx[11] = list[i];
     	return child_ctx;
     }
 
     function get_each_context_1(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[10] = list[i];
+    	child_ctx[11] = list[i];
     	return child_ctx;
     }
 
     // (27:9) {#each orm as option}
     function create_each_block_1(ctx) {
     	let option;
-    	let t_value = /*option*/ ctx[10].view + "";
+    	let t_value = /*option*/ ctx[11].view + "";
     	let t;
     	let option_value_value;
 
@@ -973,7 +973,7 @@ var app = (function () {
     		c: function create() {
     			option = element("option");
     			t = text(t_value);
-    			option.__value = option_value_value = /*option*/ ctx[10].value;
+    			option.__value = option_value_value = /*option*/ ctx[11].value;
     			option.value = option.__value;
     			add_location(option, file$2, 27, 10, 676);
     		},
@@ -982,9 +982,9 @@ var app = (function () {
     			append_dev(option, t);
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty & /*orm*/ 8 && t_value !== (t_value = /*option*/ ctx[10].view + "")) set_data_dev(t, t_value);
+    			if (dirty & /*orm*/ 8 && t_value !== (t_value = /*option*/ ctx[11].view + "")) set_data_dev(t, t_value);
 
-    			if (dirty & /*orm*/ 8 && option_value_value !== (option_value_value = /*option*/ ctx[10].value)) {
+    			if (dirty & /*orm*/ 8 && option_value_value !== (option_value_value = /*option*/ ctx[11].value)) {
     				prop_dev(option, "__value", option_value_value);
     				option.value = option.__value;
     			}
@@ -1008,7 +1008,7 @@ var app = (function () {
     // (39:9) {#each fieldname as option}
     function create_each_block(ctx) {
     	let option;
-    	let t_value = /*option*/ ctx[10].view + "";
+    	let t_value = /*option*/ ctx[11].view + "";
     	let t;
     	let option_value_value;
     	let option_selected_value;
@@ -1017,9 +1017,9 @@ var app = (function () {
     		c: function create() {
     			option = element("option");
     			t = text(t_value);
-    			option.__value = option_value_value = /*option*/ ctx[10].value;
+    			option.__value = option_value_value = /*option*/ ctx[11].value;
     			option.value = option.__value;
-    			option.selected = option_selected_value = /*option*/ ctx[10].selected;
+    			option.selected = option_selected_value = /*option*/ ctx[11].selected;
     			add_location(option, file$2, 39, 10, 1089);
     		},
     		m: function mount(target, anchor) {
@@ -1027,14 +1027,14 @@ var app = (function () {
     			append_dev(option, t);
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty & /*fieldname*/ 16 && t_value !== (t_value = /*option*/ ctx[10].view + "")) set_data_dev(t, t_value);
+    			if (dirty & /*fieldname*/ 16 && t_value !== (t_value = /*option*/ ctx[11].view + "")) set_data_dev(t, t_value);
 
-    			if (dirty & /*fieldname*/ 16 && option_value_value !== (option_value_value = /*option*/ ctx[10].value)) {
+    			if (dirty & /*fieldname*/ 16 && option_value_value !== (option_value_value = /*option*/ ctx[11].value)) {
     				prop_dev(option, "__value", option_value_value);
     				option.value = option.__value;
     			}
 
-    			if (dirty & /*fieldname*/ 16 && option_selected_value !== (option_selected_value = /*option*/ ctx[10].selected)) {
+    			if (dirty & /*fieldname*/ 16 && option_selected_value !== (option_selected_value = /*option*/ ctx[11].selected)) {
     				prop_dev(option, "selected", option_selected_value);
     			}
     		},
@@ -1169,7 +1169,8 @@ var app = (function () {
     					listen_dev(select0, "change", /*change_handler*/ ctx[7], false, false, false),
     					listen_dev(select1, "change", /*select1_change_handler*/ ctx[8]),
     					listen_dev(select1, "change", /*change_handler_1*/ ctx[9], false, false, false),
-    					listen_dev(button, "click", displaySettingModel, false, false, false)
+    					listen_dev(button, "click", displaySettingModel, false, false, false),
+    					listen_dev(textarea, "click", /*click_handler*/ ctx[10], false, false, false)
     				];
 
     				mounted = true;
@@ -1308,6 +1309,10 @@ var app = (function () {
     		generateORM();
     	};
 
+    	const click_handler = () => {
+    		navigator.clipboard.writeText(rightText);
+    	};
+
     	$$self.$$set = $$props => {
     		if ("selectedOrm" in $$props) $$invalidate(0, selectedOrm = $$props.selectedOrm);
     		if ("selectedFieldname" in $$props) $$invalidate(1, selectedFieldname = $$props.selectedFieldname);
@@ -1350,7 +1355,8 @@ var app = (function () {
     		select0_change_handler,
     		change_handler,
     		select1_change_handler,
-    		change_handler_1
+    		change_handler_1,
+    		click_handler
     	];
     }
 
