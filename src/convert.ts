@@ -8,6 +8,7 @@ import {
   JPAEmitter,
   JPAKotlinEmitter,
   SQLAlchemyEmitter,
+  MongeryEmitter,
 } from "eojuk";
 
 export function convert(
@@ -63,6 +64,9 @@ export function convert(
       break;
     case "sqlalchemy":
       emitter = new SQLAlchemyEmitter();
+      break;
+    case "mongery":
+      emitter = new MongeryEmitter();
       break;
     default:
       console.error("!! 지원되지 않는 ORM입니다.");

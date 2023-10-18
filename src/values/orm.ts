@@ -5,4 +5,5 @@ export const orm = [
   { view: "JPA-hibernate", value: "jpa" },
   { view: "JPA-hibernate(Kotlin)", value: "jpa-kotlin" },
   { view: "SQLAlchemy", value: "sqlalchemy" },
+  { view: "Mongery", value: "mongery" },
 ];
