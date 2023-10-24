@@ -390,10 +390,10 @@ dot-case@^3.0.4:
     no-case "^3.0.4"
     tslib "^2.0.3"
 
-eojuk@^0.10.4:
-  version "0.10.4"
-  resolved "https://registry.yarnpkg.com/eojuk/-/eojuk-0.10.4.tgz#9b115d4eff1ff60e084d60f130e04a0a1dd1b0b7"
-  integrity sha512-rgyB27R8IWR4P/s2VV7ClJdeOkDThFGX+3i+622m4wTDc/mdhSXLXEeAAaii/dYTRCmEiRByZpSxGxYEKstabA==
+eojuk@0.10.5:
+  version "0.10.5"
+  resolved "https://registry.yarnpkg.com/eojuk/-/eojuk-0.10.5.tgz#7cbbc69217e9316310164a5565ff1bcd9bf15d11"
+  integrity sha512-P0eAlyI1PflMaaO2AKQ+NTTFGUgOEq5r3C/7HOZD/0z0LVjN2UsqgOOsYRcynrYVz80xcfSe9ud6ZT0QluRcLg==
   dependencies:
     "@angular-devkit/core" "^12.1.4"
     camelcase "^6.2.0"
